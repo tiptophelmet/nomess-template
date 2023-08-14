@@ -7,7 +7,7 @@ type internalServerError struct {
 	Text    string
 }
 
-func InternalServerErrorResponse() *internalServerError {
+func InternalServerError() *internalServerError {
 	return &internalServerError{
 		Message: intl.Localize("internal_server_error.message"),
 		Text:    intl.Localize("internal_server_error.text"),

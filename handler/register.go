@@ -15,7 +15,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	var registerBody body.Register
 
 	if json.NewDecoder(r.Body).Decode(&registerBody) != nil {
-		responder.Respond(response.BadRequestResponse(), http.StatusBadRequest)
+		responder.Respond(response.BadRequest(), http.StatusBadRequest)
 		return
 	}
 
@@ -23,7 +23,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	err := srv.Validate(registerBody)
 	if err != nil {
-		badRequestResp := response.BadRequestResponse()
+		badRequestResp := response.BadRequest()
 		badRequestResp.Message = intl.Localize("invalid_body.message")
 		badRequestResp.Text = err.Error()
 
@@ -31,8 +31,8 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if srv.Register(registerBody) != nil {
-		responder.Respond(response.InternalServerErrorResponse(), http.StatusInternalServerError)
+		responder.Respond(response.InternalServerError(), http.StatusInternalServerError)
 	}
 
-	responder.Respond(response.RegistrationSuccessfulResponse(), http.StatusOK)
+	responder.Respond(response.RegistrationSuccessful(), http.StatusOK)
 }

@@ -7,7 +7,7 @@ type badRequest struct {
 	Text    string
 }
 
-func BadRequestResponse() *badRequest {
+func BadRequest() *badRequest {
 	return &badRequest{
 		Message: intl.Localize("bad_request.message"),
 		Text:    intl.Localize("bad_request.text"),

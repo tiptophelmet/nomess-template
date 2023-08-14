@@ -7,7 +7,7 @@ type registrationSuccessful struct {
 	Text    string
 }
 
-func RegistrationSuccessfulResponse() *registrationSuccessful {
+func RegistrationSuccessful() *registrationSuccessful {
 	return &registrationSuccessful{
 		Message: intl.Localize("registration_successful.message"),
 		Text:    intl.Localize("registration_successful.text"),
