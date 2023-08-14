@@ -7,7 +7,7 @@ import (
 	"github.com/tiptophelmet/nomess/logger"
 	"github.com/tiptophelmet/nomess/util"
 
-	"github.com/BurntSushi/toml"
+	"github.com/pelletier/go-toml"
 )
 
 type FallbackConfigs struct {
@@ -29,15 +29,14 @@ func initFallbackConfigs() *FallbackConfigs {
 		return fallbackConfigs
 	}
 
-	list := make(map[string]interface{})
+	var list *toml.Tree
 
 	if tomlData, err := os.ReadFile("../config.toml"); err != nil {
 		logger.Alert(err.Error())
-	} else if md, err := toml.Decode(string(tomlData), &list); err != nil {
+	} else if list, err = toml.Load(string(tomlData)); err != nil {
 		logger.Alert(err.Error())
 	} else {
-		actual := util.ConvertTomlKeysToStrings(md.Keys())
-		illegal := util.GetNonIntersecting(getSupportedConfigKeys(), actual)
+		illegal := util.GetNonIntersecting(getSupportedConfigKeys(), list.Keys())
 
 		if len(illegal) > 0 {
 			logger.Alert(fmt.Sprintf("fallback config.toml has illegal keys: %v", illegal))
@@ -45,7 +44,7 @@ func initFallbackConfigs() *FallbackConfigs {
 
 	}
 
-	fallbackConfigs = &FallbackConfigs{list}
+	fallbackConfigs = &FallbackConfigs{list.ToMap()}
 	return fallbackConfigs
 }
 
