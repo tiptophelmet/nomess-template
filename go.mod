@@ -11,7 +11,6 @@ require (
 require github.com/pelletier/go-toml v1.9.5
 
 require (
-	github.com/BurntSushi/toml v1.2.1
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.11.2
