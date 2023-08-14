@@ -7,6 +7,8 @@ import (
 )
 
 func main() {
+	app := app.InitApp()
+
 	app.Handle("/api/auth/register", handler.Register)
 	app.WebSocket("/chat", &websocket.Upgrader{}, handler.Chat)
 }

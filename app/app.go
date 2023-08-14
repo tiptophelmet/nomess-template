@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
 	"github.com/tiptophelmet/nomess/config"
 	"github.com/tiptophelmet/nomess/intl"
@@ -12,19 +13,23 @@ import (
 	"github.com/tiptophelmet/nomess/responder"
 )
 
-func initApp() {
+type App struct {
+	router *mux.Router
+}
+
+func InitApp() *App {
 	logger.Init()
 
 	config.Init()
 
 	intl.Init("en-US")
+
+	return &App{router: mux.NewRouter()}
 }
 
 // enhanced http handler with middleware support
-func Handle(pattern string, handlr func(http.ResponseWriter, *http.Request)) {
-	initApp()
-
-	http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+func (app *App) Handle(pattern string, handlr func(http.ResponseWriter, *http.Request)) {
+	app.router.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
 		responder.Init(w, r)
 
 		mw.WithMiddleware(w, r)
@@ -33,11 +38,9 @@ func Handle(pattern string, handlr func(http.ResponseWriter, *http.Request)) {
 	})
 }
 
-// enhanced websocket handler with middleware support
-func WebSocket(pattern string, upgrader *websocket.Upgrader, handlr func(*websocket.Conn)) {
-	initApp()
-
-	http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+// enhanced websocket handler
+func (app *App) WebSocket(pattern string, upgrader *websocket.Upgrader, handlr func(*websocket.Conn)) {
+	app.router.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
 		mw.WithMiddleware(w, r)
 
 		ws, err := upgrader.Upgrade(w, r, nil)
