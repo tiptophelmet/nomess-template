@@ -8,9 +8,10 @@ type mwFunc func(http.ResponseWriter, *http.Request)
 
 var mw = map[string][]mwFunc{
 	"/api/auth/register": {WithAuth, WithLocalize},
+	"/chat":              {WithAuth},
 }
 
-func WithMiddleware(w http.ResponseWriter, r *http.Request, handlr func(http.ResponseWriter, *http.Request)) {
+func WithMiddleware(w http.ResponseWriter, r *http.Request) {
 	mwList, found := mw[r.URL.Path]
 
 	if !found {
@@ -21,6 +22,4 @@ func WithMiddleware(w http.ResponseWriter, r *http.Request, handlr func(http.Res
 	for _, mw := range mwList {
 		mw(w, r)
 	}
-
-	handlr(w, r)
 }
