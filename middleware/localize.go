@@ -9,7 +9,7 @@ import (
 	"github.com/tiptophelmet/nomess/util"
 )
 
-func WithLocalize(w *http.ResponseWriter, r *http.Request) {
+func WithLocalize(w http.ResponseWriter, r *http.Request) {
 	locale := r.Header.Get("X-Chosen-Language")
 
 	if locales.IsSupportedLocale(locale) || strings.TrimSpace(locale) != "" {

@@ -8,6 +8,8 @@ require (
 	golang.org/x/crypto v0.5.0
 )
 
+require github.com/pelletier/go-toml v1.9.5
+
 require (
 	github.com/BurntSushi/toml v1.2.1
 	github.com/go-playground/locales v0.14.1 // indirect

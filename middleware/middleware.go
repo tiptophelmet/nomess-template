@@ -4,13 +4,13 @@ import (
 	"net/http"
 )
 
-type mwFunc func(*http.ResponseWriter, *http.Request)
+type mwFunc func(http.ResponseWriter, *http.Request)
 
 var mw = map[string][]mwFunc{
 	"/api/auth/register": {WithAuth, WithLocalize},
 }
 
-func WithMiddleware(w *http.ResponseWriter, r *http.Request, handlr func(http.ResponseWriter, *http.Request)) {
+func WithMiddleware(w http.ResponseWriter, r *http.Request, handlr func(http.ResponseWriter, *http.Request)) {
 	mwList, found := mw[r.URL.Path]
 
 	if !found {
@@ -22,5 +22,5 @@ func WithMiddleware(w *http.ResponseWriter, r *http.Request, handlr func(http.Re
 		mw(w, r)
 	}
 
-	handlr(*w, r)
+	handlr(w, r)
 }

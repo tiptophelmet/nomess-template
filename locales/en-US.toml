@@ -1,0 +1,16 @@
+# ok texts
+[registration_successful]
+message = "Registration successful"
+text = "You are 1 step away from using our app :) Please, check your email to verify your account."
+
+# err texts
+[internal_server_error]
+message = "Internal server error"
+text = "Please, retry your request later, currently we are experiencing a huge demand on our resources."
+
+[bad_request]
+message = "Bad request"
+text = "Your request appeared to have incorrect parameters. Please retry your request."
+
+[invalid_body]
+message = "Your request has invalid fields"
