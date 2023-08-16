@@ -1,2 +1,7 @@
+port = 8000
 mongodb-uri = "mongodb://localhost:27017"
 mailer = "ses"
+
+session.jwt.expiration.time = 3600
+session.jwt.expiration.window = 300
+# no fallback for session.jwt.secret, set from env only 

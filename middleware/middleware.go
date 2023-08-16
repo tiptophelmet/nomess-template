@@ -8,7 +8,7 @@ type mwFunc func(http.ResponseWriter, *http.Request)
 
 var mw = map[string][]mwFunc{
 	"/register": {WithLocalize},
-	"/chat":     {WithAuth},
+	"/chat":     {WithSession},
 }
 
 func WithMiddleware(w http.ResponseWriter, r *http.Request) {
@@ -16,7 +16,7 @@ func WithMiddleware(w http.ResponseWriter, r *http.Request) {
 
 	if !found {
 		// default middleware
-		mwList = []mwFunc{WithAuth, WithLocalize}
+		mwList = []mwFunc{WithSession, WithLocalize}
 	}
 
 	for _, mw := range mwList {
