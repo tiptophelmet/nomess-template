@@ -7,8 +7,8 @@ import (
 type mwFunc func(http.ResponseWriter, *http.Request)
 
 var mw = map[string][]mwFunc{
-	"/api/auth/register": {WithAuth, WithLocalize},
-	"/chat":              {WithAuth},
+	"/register": {WithLocalize},
+	"/chat":     {WithAuth},
 }
 
 func WithMiddleware(w http.ResponseWriter, r *http.Request) {
