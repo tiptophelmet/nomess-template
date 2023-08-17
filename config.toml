@@ -5,3 +5,6 @@ mailer = "ses"
 session.jwt.expiration.time = 3600
 session.jwt.expiration.window = 300
 # no fallback for session.jwt.secret, set from env only 
+
+db.orm.driver = "postgres"
+db.orm.dsn = "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=America/New_York"

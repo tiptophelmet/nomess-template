@@ -7,6 +7,8 @@ var supportedConfigs = map[string]string{
 	"session.jwt.expiration.time":   "NOMESS_SESSION_JWT_EXPIRATION_TIME",
 	"session.jwt.expiration.window": "NOMESS_SESSION_JWT_EXPIRATION_WINDOW",
 	"session.jwt.secret":            "NOMESS_SESSION_JWT_SECRET",
+	"db.orm.driver":                 "NOMESS_DB_ORM_DRIVER",
+	"db.orm.dsn":                    "NOMESS_DB_ORM_DSN",
 }
 
 func getSupportedConfigKeys() []string {

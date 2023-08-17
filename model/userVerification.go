@@ -1,9 +1,12 @@
 package model
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"github.com/tiptophelmet/nomess/db/orm/doc/mongo"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 type UserVerification struct {
-	ID     primitive.ObjectID `bson:"_id"`
+	mongo.Model
 	UserID primitive.ObjectID `bson:"user_id"`
 	Code   string             `bson:"code"`
 }

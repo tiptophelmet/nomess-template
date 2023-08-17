@@ -18,4 +18,5 @@ var (
 	ErrJwtNotParsed     = errors.New("failed to parse jwt")
 	ErrInvalidJwtClaims = errors.New("jwt has invalid claims")
 	ErrInvalidJwt       = errors.New("jwt is invalid")
+	ErrDbConnectionFailed = errors.New("failed to connect to database")
 )

@@ -1,11 +1,13 @@
 package model
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"github.com/tiptophelmet/nomess/db/orm/doc/mongo"
+)
 
 type User struct {
-	ID           primitive.ObjectID `bson:"_id"`
-	Email        string             `bson:"email"`
-	PasswordHash string             `bson:"password_hash"`
-	AuthProvider string             `bson:"auth_provider"`
-	Verified     bool               `bson:"verified"`
+	mongo.Model
+	Email        string `bson:"email"`
+	PasswordHash string `bson:"password_hash"`
+	AuthProvider string `bson:"auth_provider"`
+	Verified     bool   `bson:"verified"`
 }
