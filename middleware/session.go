@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/tiptophelmet/nomess/config"
-	"github.com/tiptophelmet/nomess/logger"
 	"github.com/tiptophelmet/nomess/session"
 )
 
@@ -36,11 +35,7 @@ func WithSession(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		jwtExpTime, err := config.Int("session.jwt.expiration.time")
-
-		if err != nil {
-			logger.Crit("could not resolve session.jwt.expiration.time")
-		}
+		jwtExpTime := config.Get("session.jwt.expiration.time").Required().Int()
 
 		cookie.Value = rotatedToken
 		cookie.MaxAge = jwtExpTime

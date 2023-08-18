@@ -10,23 +10,23 @@ import (
 	"github.com/pelletier/go-toml"
 )
 
-type FallbackConfigs struct {
+type FallbackConfigList struct {
 	list map[string]interface{}
 }
 
 func fallback(configName string) interface{} {
-	if val, present := fallbackConfigs.list[configName]; present {
+	if val, present := fallbackList.list[configName]; present {
 		return val
 	} else {
 		return nil
 	}
 }
 
-var fallbackConfigs *FallbackConfigs
+var fallbackList *FallbackConfigList
 
-func initFallbackConfigs() *FallbackConfigs {
-	if fallbackConfigs != nil {
-		return fallbackConfigs
+func initFallbackConfigs() *FallbackConfigList {
+	if fallbackList != nil {
+		return fallbackList
 	}
 
 	var list *toml.Tree
@@ -44,19 +44,19 @@ func initFallbackConfigs() *FallbackConfigs {
 
 	}
 
-	fallbackConfigs = &FallbackConfigs{list.ToMap()}
-	return fallbackConfigs
+	fallbackList = &FallbackConfigList{list.ToMap()}
+	return fallbackList
 }
 
-type Configs struct {
+type ConfigList struct {
 	list map[string]*Env
 }
 
-var appConfigs *Configs
+var configList *ConfigList
 
-func initAppConfigs() *Configs {
-	if appConfigs != nil {
-		return appConfigs
+func initAppConfigs() *ConfigList {
+	if configList != nil {
+		return configList
 	}
 
 	list := make(map[string]*Env)
@@ -65,8 +65,8 @@ func initAppConfigs() *Configs {
 		list[configName] = initEnv(envName, fallback(configName))
 	}
 
-	appConfigs = &Configs{list}
-	return appConfigs
+	configList = &ConfigList{list}
+	return configList
 }
 
 func Init() {

@@ -18,10 +18,7 @@ type MongoDB struct {
 }
 
 func InitMongoDB() *MongoDB {
-	uri, err := config.Str("mongodb-uri")
-	if err != nil {
-		logger.Alert("mongoDB URI not found")
-	}
+	uri := config.Get("mongodb-uri").Required().Str()
 
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 	if err != nil {

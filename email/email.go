@@ -2,7 +2,6 @@ package email
 
 import (
 	"github.com/tiptophelmet/nomess/config"
-	"github.com/tiptophelmet/nomess/logger"
 )
 
 type Email interface {
@@ -10,12 +9,9 @@ type Email interface {
 }
 
 func InitEmail() Email {
-	mailer, err := config.Str("mailer")
-	if err != nil {
-		logger.Alert("could not resolve mailer")
-	}
+	mailDriver := config.Get("mail.driver").Required().Str()
 
-	switch mailer {
+	switch mailDriver {
 	case "ses":
 		return InitSES()
 	default:

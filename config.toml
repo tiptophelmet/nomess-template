@@ -1,6 +1,8 @@
 port = 8000
-mongodb-uri = "mongodb://localhost:27017"
-mailer = "ses"
+
+mongodb.uri = "mongodb://localhost:27017"
+
+mail.driver = "ses"
 
 session.jwt.expiration.time = 3600
 session.jwt.expiration.window = 300

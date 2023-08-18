@@ -15,15 +15,8 @@ import (
 )
 
 func Init() *gorm.DB {
-	driverConfig, err := config.Str("db.orm.driver")
-	if err != nil {
-		logger.Alert("could not resolve db.orm.driver")
-	}
-
-	dsn, err := config.Str("db.orm.dsn")
-	if err != nil {
-		logger.Emergency("could not resolve db.orm.dsn")
-	}
+	driverConfig := config.Get("db.orm.driver").Required().Str()
+	dsn := config.Get("db.orm.dsn").Required().Str()
 
 	var dialector gorm.Dialector
 

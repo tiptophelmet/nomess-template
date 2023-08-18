@@ -25,14 +25,10 @@ func prepareRoutes() {
 }
 
 func startServer() {
-	port, err := config.Str("port")
-	if err != nil {
-		logger.Emergency(fmt.Sprintf("failed to start http server: %v", err.Error()))
-	}
-
+	port := config.Get("port").Required().Str()
 	prefixedPort := fmt.Sprintf(":%v", port)
 
-	err = http.ListenAndServe(prefixedPort, router.GetMuxRouter())
+	err := http.ListenAndServe(prefixedPort, router.GetMuxRouter())
 	if err != nil {
 		logger.Emergency(fmt.Sprintf("failed to start http server: %v", err.Error()))
 	} else {

@@ -2,110 +2,32 @@ package config
 
 import (
 	"fmt"
-	"strings"
 
-	"github.com/tiptophelmet/nomess/errs"
 	"github.com/tiptophelmet/nomess/logger"
+	"github.com/tiptophelmet/nomess/util"
 )
 
-func Str(name string) (string, error) {
-	rawVal, err := raw(name)
-	if err != nil {
-		return "", err
-	}
-
-	val, typeOk := rawVal.(string)
-	if !typeOk {
-		logger.Err(fmt.Sprintf("%s: \"%s\"", err.Error(), name))
-		return "", errs.ErrTypeAssertion
-	}
-
-	return val, nil
+type ConfigOptions struct {
+	name   string
+	rawVal interface{}
 }
 
-func Int(name string) (int, error) {
-	rawVal, err := raw(name)
-	if err != nil {
-		return 0, err
+func Get(name string) *ConfigOptions {
+	options := &ConfigOptions{
+		name:   name,
+		rawVal: raw(name),
 	}
 
-	val, typeOk := rawVal.(int)
-	if !typeOk {
-		logger.Err(fmt.Sprintf("%s: \"%s\"", err.Error(), name))
-		return 0, errs.ErrTypeAssertion
-	}
-
-	return val, nil
+	return options
 }
 
-func Int64(name string) (int64, error) {
-	rawVal, err := raw(name)
-	if err != nil {
-		return 0, err
-	}
-
-	val, typeOk := rawVal.(int64)
-	if !typeOk {
-		logger.Err(fmt.Sprintf("%s: \"%s\"", err.Error(), name))
-		return 0, errs.ErrTypeAssertion
-	}
-
-	return val, nil
-}
-
-func Float(name string) (float32, error) {
-	rawVal, err := raw(name)
-	if err != nil {
-		return 0.0, err
-	}
-
-	val, typeOk := rawVal.(float32)
-	if !typeOk {
-		logger.Err(fmt.Sprintf("%s: \"%s\"", err.Error(), name))
-		return 0.0, errs.ErrTypeAssertion
-	}
-
-	return val, nil
-}
-
-func Bool(name string) (bool, error) {
-	rawVal, err := raw(name)
-	if err != nil {
-		return false, err
-	}
-
-	val, typeOk := rawVal.(bool)
-	if !typeOk {
-		logger.Err(fmt.Sprintf("%s: \"%s\"", err.Error(), name))
-		return false, errs.ErrTypeAssertion
-	}
-
-	return val, nil
-}
-
-func List(name string) ([]string, error) {
-	arr := make([]string, 0)
-
-	strVal, err := Str(name)
-
-	if err != nil {
-		logger.Err(fmt.Sprintf("%s: \"%s\"", err.Error(), name))
-		return arr, errs.ErrTypeAssertion
-	}
-
-	val := strings.Split(strVal, ",")
-
-	return val, nil
-}
-
-func raw(name string) (interface{}, error) {
-	env, found := appConfigs.list[name]
+func raw(name string) interface{} {
+	env, found := configList.list[name]
 	if !found {
-		logger.Err(fmt.Sprintf("%s: \"%s\"", errs.ErrConfigNotFound.Error(), name))
-		return nil, errs.ErrConfigNotFound
+		return nil
 	}
 
-	var rawVal any
+	var rawVal interface{}
 
 	if env.value != nil {
 		rawVal = env.value
@@ -113,5 +35,64 @@ func raw(name string) (interface{}, error) {
 		rawVal = env.fallback
 	}
 
-	return rawVal, nil
+	return rawVal
+}
+
+func (co *ConfigOptions) Required() *ConfigOptions {
+	if util.IsEmpty(co.rawVal) {
+		logger.Emergency(fmt.Sprintf("could not resolve config %v", co.name))
+		return nil
+	}
+
+	return co
+}
+
+func (co *ConfigOptions) Str() string {
+	val, typeOk := co.rawVal.(string)
+	if !typeOk {
+		logger.Err(fmt.Sprintf("could not assert config %v to string", co.name))
+		return ""
+	}
+
+	return val
+}
+
+func (co *ConfigOptions) Int() int {
+	val, typeOk := co.rawVal.(int)
+	if !typeOk {
+		logger.Err(fmt.Sprintf("could not assert config %v to int", co.name))
+		return 0
+	}
+
+	return val
+}
+
+func (co *ConfigOptions) Int64() int64 {
+	val, typeOk := co.rawVal.(int64)
+	if !typeOk {
+		logger.Err(fmt.Sprintf("could not assert config %v to int64", co.name))
+		return 0
+	}
+
+	return val
+}
+
+func (co *ConfigOptions) Float() float32 {
+	val, typeOk := co.rawVal.(float32)
+	if !typeOk {
+		logger.Err(fmt.Sprintf("could not assert config %v to float", co.name))
+		return 0.0
+	}
+
+	return val
+}
+
+func (co *ConfigOptions) Bool() bool {
+	val, typeOk := co.rawVal.(bool)
+	if !typeOk {
+		logger.Err(fmt.Sprintf("could not assert config %v to bool", co.name))
+		return false
+	}
+
+	return val
 }

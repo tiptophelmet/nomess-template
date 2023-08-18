@@ -11,11 +11,7 @@ import (
 )
 
 func IssueSessionToken(userID string) (string, error) {
-	jwtExpTime, err := config.Int64("session.jwt.expiration.time")
-	if err != nil {
-		logger.Crit("could not resolve session.jwt.expiration.time")
-		return "", errs.ErrJwtNotIssued
-	}
+	jwtExpTime := config.Get("session.jwt.expiration.time").Required().Int64()
 
 	// TODO: Add jti support
 	claims := jwt.MapClaims{
@@ -26,11 +22,7 @@ func IssueSessionToken(userID string) (string, error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	jwtSecret, err := config.Str("session.jwt.secret")
-	if err != nil {
-		logger.Crit("could not resolve session.jwt.secret")
-		return "", errs.ErrJwtNotIssued
-	}
+	jwtSecret := config.Get("session.jwt.secret").Required().Str()
 
 	signedJwt, err := token.SignedString([]byte(jwtSecret))
 	if err != nil {
@@ -42,12 +34,7 @@ func IssueSessionToken(userID string) (string, error) {
 }
 
 func checkRotationCondition(jwtExpTime int64) (bool, error) {
-	jwtExpWindow, err := config.Int64("session.jwt.expiration.window")
-	if err != nil {
-		logger.Crit("could not resolve session.jwt.expiration.window")
-		return false, errs.ErrJwtNotIssued
-	}
-
+	jwtExpWindow := config.Get("session.jwt.expiration.window").Required().Int64()
 	currentTime := time.Now().Unix()
 
 	isExpired := currentTime > jwtExpTime
@@ -57,11 +44,7 @@ func checkRotationCondition(jwtExpTime int64) (bool, error) {
 }
 
 func TryRotateSessionToken(signedToken string) (string, error) {
-	jwtSecret, err := config.Str("session.jwt.secret")
-	if err != nil {
-		logger.Crit("could not resolve session.jwt.secret")
-		return "", errs.ErrJwtNotIssued
-	}
+	jwtSecret := config.Get("session.jwt.secret").Required().Str()
 
 	parsedToken, err := jwt.Parse(signedToken, func(token *jwt.Token) (interface{}, error) {
 		return []byte(jwtSecret), nil
@@ -97,11 +80,7 @@ func TryRotateSessionToken(signedToken string) (string, error) {
 }
 
 func ValidateSessionToken(token string) (bool, error) {
-	jwtSecret, err := config.Str("session.jwt.secret")
-	if err != nil {
-		logger.Crit("could not resolve session.jwt.secret")
-		return false, errs.ErrJwtNotParsed
-	}
+	jwtSecret := config.Get("session.jwt.secret").Required().Str()
 
 	parsedToken, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
 		return []byte(jwtSecret), nil
