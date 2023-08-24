@@ -10,3 +10,6 @@ session.jwt.expiration.window = 300
 
 db.orm.driver = "postgres"
 db.orm.dsn = "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=America/New_York"
+
+cache.driver = "redis"
+cache.url = "redis://user:password@localhost:6789/3?dial_timeout=3&db=1&read_timeout=6s&max_retries=2"

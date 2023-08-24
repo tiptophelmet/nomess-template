@@ -9,6 +9,8 @@ var supportedConfigs = map[string]string{
 	"session.jwt.secret":            "NOMESS_SESSION_JWT_SECRET",
 	"db.orm.driver":                 "NOMESS_DB_ORM_DRIVER",
 	"db.orm.dsn":                    "NOMESS_DB_ORM_DSN",
+	"cache.driver":                  "NOMESS_CACHE_DRIVER",
+	"cache.url":                     "NOMESS_CACHE_URL",
 }
 
 func getSupportedConfigKeys() []string {
