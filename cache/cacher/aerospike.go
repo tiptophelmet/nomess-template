@@ -12,6 +12,7 @@ import (
 
 type AerospikeCacher struct {
 	client *aerospike.Client
+	namespace string
 }
 
 func InitAerospikeCacher() *AerospikeCacher {
@@ -32,23 +33,23 @@ func (ac *AerospikeCacher) Connect(url string) error {
 		return errs.ErrCacheStoreConnectionFailed
 	}
 
+	ac.namespace = clientFactory.GetNamespace()
+
 	return nil
 }
 
-func (ac *AerospikeCacher) Set(key string, val []byte, namespace string, exp time.Duration) error {
-	if namespace != "" {
-		key = fmt.Sprintf("%v.%v", namespace, key)
-	}
-
-	setKey := fmt.Sprintf("set-%v", key)
-	aeroKey, err := aerospike.NewKey(namespace, setKey, key)
+func (ac *AerospikeCacher) Set(key string, val []byte, exp time.Duration) error {
+	setKey := fmt.Sprintf("set.%v", key)
+	aeroKey, err := aerospike.NewKey(ac.namespace, setKey, key)
 	if err != nil {
 		return err
 	}
 
-	bin := aerospike.NewBin(namespace, val)
+	bin := aerospike.NewBin(key, val)
 
-	err = ac.client.PutBins(nil, aeroKey, bin)
+	policy := aerospike.NewWritePolicy(0, uint32(exp.Seconds()))
+
+	err = ac.client.PutBins(policy, aeroKey, bin)
 	if err != nil {
 		return err
 	}
@@ -56,28 +57,72 @@ func (ac *AerospikeCacher) Set(key string, val []byte, namespace string, exp tim
 	return nil
 }
 
-func (ac *AerospikeCacher) Has(key string, namespace string) bool {
-	return false
+func (ac *AerospikeCacher) Has(key string) (bool, error) {
+	setKey := fmt.Sprintf("set.%v", key)
+	aeroKey, err := aerospike.NewKey(ac.namespace, setKey, key)
+	if err != nil {
+		return false, err
+	}
+
+	return ac.client.Exists(nil, aeroKey)
 }
 
-func (ac *AerospikeCacher) Get(key string, namespace string) ([]byte, error) {
-	byteSlice := make([]byte, 0)
-	return byteSlice, nil
+func (ac *AerospikeCacher) Get(key string) ([]byte, error) {
+	setKey := fmt.Sprintf("set.%v", key)
+	aeroKey, err := aerospike.NewKey(ac.namespace, setKey, key)
+	if err != nil {
+		return nil, err
+	}
+
+	record, err := ac.client.Get(nil, aeroKey)
+	if err != nil {
+		return nil, err
+	}
+
+	return record.Bins[key].([]byte), nil
 }
 
-func (ac *AerospikeCacher) Expire(exp time.Duration) {
+func (ac *AerospikeCacher) Expire(key string, exp time.Duration) error {
+	policy := aerospike.NewWritePolicy(0, uint32(exp.Seconds()))
+	policy.RecordExistsAction = aerospike.UPDATE_ONLY
 
+	setKey := fmt.Sprintf("set.%v", key)
+	aeroKey, err := aerospike.NewKey(ac.namespace, setKey, key)
+	if err != nil {
+		return err
+	}
+
+	return ac.client.Touch(policy, aeroKey)
 }
 
-func (ac *AerospikeCacher) ExpireTime() time.Duration {
-	duration, _ := time.ParseDuration("0")
-	return duration
+func (ac *AerospikeCacher) ExpireTime(key string) (time.Duration, error) {
+	setKey := fmt.Sprintf("set.%v", key)
+	aeroKey, err := aerospike.NewKey(ac.namespace, setKey, key)
+	if err != nil {
+		return -1, err
+	}
+
+	record, err := ac.client.GetHeader(nil, aeroKey)
+	if err != nil {
+		return -1, err
+	}
+
+	return time.Duration(record.Expiration), nil
 }
 
-func (ac *AerospikeCacher) Delete(key string, namespace string) error {
-	return nil
+func (ac *AerospikeCacher) Delete(key string) (bool, error) {
+	setKey := fmt.Sprintf("set.%v", key)
+	aeroKey, err := aerospike.NewKey(ac.namespace, setKey, key)
+	if err != nil {
+		return false, err
+	}
+
+	deletePolicy := aerospike.NewWritePolicy(0,0)
+    deletePolicy.DurableDelete = true
+
+	return ac.client.Delete(deletePolicy, aeroKey)
 }
 
 func (ac *AerospikeCacher) Flush() error {
-	return nil
+	return ac.client.Truncate(nil, ac.namespace, "", nil)
 }

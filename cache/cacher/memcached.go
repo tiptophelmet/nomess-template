@@ -30,11 +30,7 @@ func (mc *MemcachedCacher) Connect(url string) error {
 	return nil
 }
 
-func (mc *MemcachedCacher) Set(key string, val []byte, namespace string, exp time.Duration) error {
-	if namespace != "" {
-		key = fmt.Sprintf("%v.%v", namespace, key)
-	}
-
+func (mc *MemcachedCacher) Set(key string, val []byte, exp time.Duration) error {
 	return mc.client.Set(&memcache.Item{
 		Key:        key,
 		Value:      val,
@@ -42,28 +38,51 @@ func (mc *MemcachedCacher) Set(key string, val []byte, namespace string, exp tim
 	})
 }
 
-func (mc *MemcachedCacher) Has(key string, namespace string) bool {
-	return false
+func (mc *MemcachedCacher) Has(key string) (bool, error) {
+	_, err := mc.Get(key)
+
+	if err == nil {
+		return true, nil
+	}
+
+	if err == memcache.ErrCacheMiss {
+		return false, nil
+	}
+
+	return false, err
 }
 
-func (mc *MemcachedCacher) Get(key string, namespace string) ([]byte, error) {
-	byteSlice := make([]byte, 0)
-	return byteSlice, nil
+func (mc *MemcachedCacher) Get(key string) ([]byte, error) {
+	item, err := mc.client.Get(key)
+	if err != nil {
+		return nil, err
+	}
+
+	return item.Value, nil
 }
 
-func (mc *MemcachedCacher) Expire(exp time.Duration) {
-
+func (mc *MemcachedCacher) Expire(key string, exp time.Duration) error {
+	return mc.client.Touch(key, int32(exp.Seconds()))
 }
 
-func (mc *MemcachedCacher) ExpireTime() time.Duration {
-	duration, _ := time.ParseDuration("0")
-	return duration
+func (mc *MemcachedCacher) ExpireTime(key string) (time.Duration, error) {
+	item, err := mc.client.Get(key)
+	if err != nil {
+		return -1, err
+	}
+
+	return time.Duration(item.Expiration), nil
 }
 
-func (mc *MemcachedCacher) Delete(key string, namespace string) error {
-	return nil
+func (mc *MemcachedCacher) Delete(key string) (bool, error) {
+	err := mc.client.Delete(key)
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
 }
 
 func (mc *MemcachedCacher) Flush() error {
-	return nil
+	return mc.client.FlushAll()
 }

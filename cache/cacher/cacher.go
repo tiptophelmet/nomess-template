@@ -5,13 +5,14 @@ import "time"
 type Cacher interface {
 	Connect(url string) error
 
-	Set(key string, val []byte, namespace string, exp time.Duration) error
-	Has(key string, namespace string) bool
-	Get(key string, namespace string) ([]byte, error)
+	Set(key string, val []byte, exp time.Duration) error
+	Has(key string) (bool, error)
+	Get(key string) ([]byte, error)
 
-	Expire(exp time.Duration)
-	ExpireTime() time.Duration
+	Expire(key string, exp time.Duration) error
+	ExpireTime(key string) (time.Duration, error)
 
-	Delete(key string, namespace string) error
+	Delete(key string) (bool, error)
 	Flush() error
 }
+
