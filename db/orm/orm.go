@@ -14,7 +14,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func Init() *gorm.DB {
+func Init() {
 	driverConfig := config.Get("db.orm.driver").Required().Str()
 	dsn := config.Get("db.orm.dsn").Required().Str()
 
@@ -34,8 +34,7 @@ func Init() *gorm.DB {
 		dialector = clickhouse.Open(dsn)
 	default:
 		logger.Emergency(fmt.Sprintf("unsupported db.orm.driver: %v", driverConfig))
-		return nil
 	}
 
-	return sql.InitGormConnection(dialector, &gorm.Config{TranslateError: true})
+	sql.InitGormConnection(dialector, &gorm.Config{TranslateError: true})
 }
