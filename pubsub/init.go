@@ -18,10 +18,6 @@ func InitPubSub() {
 		pubsubClient = &broker.RedisBroker{}
 	case "nats":
 		pubsubClient = &broker.NATSBroker{}
-	case "zeromq":
-		pubsubClient = &broker.ZeroMQBroker{}
-	case "mqtt":
-		pubsubClient = &broker.MQTTBroker{}
 	default:
 		logger.Emergency(fmt.Sprintf("unsupported cache.driver: %v", driverConfig))
 	}
