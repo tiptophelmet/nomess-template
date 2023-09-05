@@ -13,15 +13,16 @@ require github.com/pelletier/go-toml v1.9.5
 require github.com/gorilla/websocket v1.5.0
 
 require (
+	github.com/aerospike/aerospike-client-go/v6 v6.13.0
 	github.com/bradfitz/gomemcache v0.0.0-20230611145640-acc696258285
 	github.com/gorilla/mux v1.8.0
 	github.com/redis/go-redis/v9 v9.1.0
+	github.com/tiptophelmet/aerospike-url v1.1.0
 )
 
 require (
 	github.com/ClickHouse/ch-go v0.53.0 // indirect
 	github.com/ClickHouse/clickhouse-go/v2 v2.8.3 // indirect
-	github.com/aerospike/aerospike-client-go/v6 v6.13.0 // indirect
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
@@ -40,6 +41,7 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 	github.com/microsoft/go-mssqldb v1.1.0 // indirect
+	github.com/nats-io/nats-server/v2 v2.9.21 // indirect
 	github.com/nats-io/nkeys v0.4.4 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/paulmach/orb v0.9.0 // indirect
@@ -48,7 +50,6 @@ require (
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
-	github.com/tiptophelmet/aerospike-url v1.1.0 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da // indirect
 	go.opentelemetry.io/otel v1.14.0 // indirect
 	go.opentelemetry.io/otel/trace v1.14.0 // indirect
