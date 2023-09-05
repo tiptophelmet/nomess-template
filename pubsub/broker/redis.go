@@ -1,35 +1,84 @@
 package broker
 
+import (
+	"context"
+	"fmt"
+
+	"github.com/redis/go-redis/v9"
+	"github.com/tiptophelmet/nomess/errs"
+	"github.com/tiptophelmet/nomess/logger"
+)
+
 type RedisBroker struct {
-	// Add Redis-specific fields if needed
+	client *redis.Client
+	subscriptions map[string]*redis.PubSub
 }
 
 func (r *RedisBroker) Connect(url string) error {
-	// Implement Redis connection
+	options, err := redis.ParseURL(url)
+	if err != nil {
+		logger.Err(fmt.Sprintf("failed to connect to redis (pubsub): %v", err.Error()))
+		return errs.ErrPubSubBrokerConnectionFailed
+	}
+
+	r.client = redis.NewClient(options)
 	return nil
 }
 
 func (r *RedisBroker) Publish(topic string, message []byte) error {
-	// Implement Redis publish
-	return nil
+	ctx, ctxCancel := context.WithCancel(context.Background())
+	defer ctxCancel()
+
+	intCmd := r.client.Publish(ctx, topic, message)
+	return intCmd.Err()
 }
 
 func (r *RedisBroker) Subscribe(topic string, handler func(message []byte)) error {
-	// Implement Redis subscribe
+	ctx, ctxCancel := context.WithCancel(context.Background())
+	defer ctxCancel()
+
+	sub := r.client.Subscribe(ctx, topic)
+
+	_, err := sub.Receive(ctx)
+	if err != nil {
+		return err
+	}
+
+	r.subscriptions[topic] = sub
+
+	ch := sub.Channel()
+	for msg := range ch {
+		handler([]byte(msg.Payload))
+	}
+
 	return nil
 }
 
 func (r *RedisBroker) Unsubscribe(topic string) error {
-	// Implement Redis unsubscribe
+	ctx, ctxCancel := context.WithCancel(context.Background())
+	defer ctxCancel()
+
+	sub, found := r.subscriptions[topic]
+	if found {
+		delete(r.subscriptions, topic)
+		return sub.Unsubscribe(ctx)
+	}
+
 	return nil
 }
 
 func (r *RedisBroker) IsConnected() bool {
-	// Implement Redis connection status check
-	return false
+	ctx, ctxCancel := context.WithCancel(context.Background())
+	defer ctxCancel()
+
+	statusCmd := r.client.Ping(ctx)
+	if err := statusCmd.Err(); err != nil {
+		return false
+	}
+	
+	return true
 }
 
 func (r *RedisBroker) Close() error {
-	// Implement Redis close
-	return nil
+	return r.client.Close()
 }
