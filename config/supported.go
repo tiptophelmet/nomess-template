@@ -11,6 +11,8 @@ var supportedConfigs = map[string]string{
 	"db.orm.dsn":                    "NOMESS_DB_ORM_DSN",
 	"cache.driver":                  "NOMESS_CACHE_DRIVER",
 	"cache.url":                     "NOMESS_CACHE_URL",
+	"pubsub.driver":                 "NOMESS_PUBSUB_DRIVER",
+	"pubsub.url":                    "NOMESS_PUBSUB_URL",
 }
 
 func getSupportedConfigKeys() []string {

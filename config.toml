@@ -13,3 +13,6 @@ db.orm.dsn = "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmo
 
 cache.driver = "redis"
 cache.url = "redis://user:password@localhost:6789/3?dial_timeout=3&db=1&read_timeout=6s&max_retries=2"
+
+pubsub.driver = "nats"
+pubsub.url = "nats://localhost:4222"
