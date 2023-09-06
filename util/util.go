@@ -1,7 +1,6 @@
 package util
 
 import (
-	"fmt"
 	"math/rand"
 )
 
@@ -13,8 +12,4 @@ func RandStringBytes(n int) string {
 		b[i] = letterBytes[rand.Intn(len(letterBytes))]
 	}
 	return string(b)
-}
-
-func IsEmpty(i interface{}) bool {
-	return i == nil || (i != nil && fmt.Sprintf("%v", i) == "")
 }

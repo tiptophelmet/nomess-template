@@ -1,7 +1,7 @@
 package repo
 
 import (
-	"github.com/tiptophelmet/nomess/db"
+	"github.com/tiptophelmet/nomess/internal/db"
 	"github.com/tiptophelmet/nomess/model"
 
 	"go.mongodb.org/mongo-driver/mongo"

@@ -6,11 +6,10 @@ import (
 	"strings"
 
 	"github.com/tiptophelmet/nomess/body"
-	"github.com/tiptophelmet/nomess/email"
 	"github.com/tiptophelmet/nomess/errs"
-	"github.com/tiptophelmet/nomess/logger"
+	"github.com/tiptophelmet/nomess/internal/logger"
+	"github.com/tiptophelmet/nomess/internal/password"
 	"github.com/tiptophelmet/nomess/model"
-	"github.com/tiptophelmet/nomess/password"
 	"github.com/tiptophelmet/nomess/repo"
 	"github.com/tiptophelmet/nomess/util"
 
@@ -32,16 +31,9 @@ func InitRegisterService() *Register {
 	}
 }
 
-func (srv *Register) sendVerificationEmail(mailTo string, code string) (bool, error) {
-	ml := email.InitEmail()
-
-	// TODO: align with new template-oriented email client implementation
-	return ml.Send(
-		mailTo,
-		fmt.Sprintf("Dear user, Only 1 step is required - verify your profile by clicking this link: https://example.com/api/auth/verify?code=%s", code),
-		"Profile verification",
-		"verification@example.com",
-	)
+func (srv *Register) sendVerificationEmail(mailTo string, code string) error {
+	// Use your email client to send verification email
+	return nil
 }
 
 func (srv *Register) Validate(body body.Register) error {
@@ -71,7 +63,7 @@ func (srv *Register) Register(body body.Register) error {
 	passwHash, err := password.HashAndSalt(body.Password)
 	if err != nil {
 		logger.Fatal(err.Error())
-		return errs.ErrPasswordHash
+		return err
 	}
 
 	user := &model.User{
@@ -99,7 +91,7 @@ func (srv *Register) Register(body body.Register) error {
 		return errs.ErrUserVerificationInsert
 	}
 
-	_, err = srv.sendVerificationEmail(body.Email, userVerification.Code)
+	err = srv.sendVerificationEmail(body.Email, userVerification.Code)
 
 	if err != nil {
 		logger.Error(err.Error())

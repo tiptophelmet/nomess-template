@@ -1,6 +1,6 @@
 package response
 
-import "github.com/tiptophelmet/nomess/intl"
+import "github.com/tiptophelmet/nomess/internal/intl"
 
 type internalServerError struct {
 	Message string

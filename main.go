@@ -4,24 +4,16 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gorilla/websocket"
 	"github.com/tiptophelmet/nomess/app"
-	"github.com/tiptophelmet/nomess/config"
-	"github.com/tiptophelmet/nomess/handler"
-	"github.com/tiptophelmet/nomess/logger"
-	"github.com/tiptophelmet/nomess/router"
+	"github.com/tiptophelmet/nomess/internal/config"
+	"github.com/tiptophelmet/nomess/internal/logger"
+	"github.com/tiptophelmet/nomess/internal/router"
 )
 
 func main() {
-	app.Init()
+	app.InitApp()
 
-	prepareRoutes()
 	startServer()
-}
-
-func prepareRoutes() {
-	router.Handle("/register", handler.Register).Methods("GET")
-	router.WebSocket("/chat", &websocket.Upgrader{}, handler.Chat)
 }
 
 func startServer() {

@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/tiptophelmet/nomess/body"
-	"github.com/tiptophelmet/nomess/intl"
-	"github.com/tiptophelmet/nomess/responder"
+	"github.com/tiptophelmet/nomess/internal/intl"
+	"github.com/tiptophelmet/nomess/internal/responder"
 	"github.com/tiptophelmet/nomess/response"
 	"github.com/tiptophelmet/nomess/service"
 )

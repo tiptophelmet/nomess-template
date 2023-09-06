@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/tiptophelmet/nomess/intl"
+	"github.com/tiptophelmet/nomess/internal/intl"
 	"github.com/tiptophelmet/nomess/locales"
 	"github.com/tiptophelmet/nomess/util"
 )

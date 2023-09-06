@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gorilla/websocket"
-	"github.com/tiptophelmet/nomess/logger"
+	"github.com/tiptophelmet/nomess/internal/logger"
 )
 
 func Chat(ws *websocket.Conn) {

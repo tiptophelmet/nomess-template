@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/tiptophelmet/nomess/db/orm/doc/mongo"
+	"github.com/tiptophelmet/nomess/internal/db/orm/doc/mongo"
 )
 
 type User struct {
