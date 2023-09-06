@@ -8,32 +8,32 @@ import (
 	"github.com/tiptophelmet/nomess/pubsub/broker"
 )
 
-type PubSubClient struct {
+type pubSubClient struct {
 	broker broker.PubSubBroker
 	mu     sync.Mutex
 }
 
-var pubsubClient *PubSubClient
+var client *pubSubClient
 
 func Init() {
 	driverConfig := config.Get("pubsub.driver").Required().Str()
 
 	switch driverConfig {
 	case "redis":
-		pubsubClient = &PubSubClient{broker: &broker.RedisBroker{}}
+		client = &pubSubClient{broker: &broker.RedisBroker{}}
 	case "nats":
-		pubsubClient = &PubSubClient{broker: &broker.NATSBroker{}}
+		client = &pubSubClient{broker: &broker.NATSBroker{}}
 	default:
 		logger.Panic("unsupported pubsub.driver: %v", driverConfig)
 	}
 
 	driverURL := config.Get("pubsub.url").Required().Str()
-	pubsubClient.broker.Connect(driverURL)
+	client.broker.Connect(driverURL)
 }
 
 func Connection() broker.PubSubBroker {
-	pubsubClient.mu.Lock()
-	defer pubsubClient.mu.Unlock()
+	client.mu.Lock()
+	defer client.mu.Unlock()
 
-	return pubsubClient.broker
+	return client.broker
 }
