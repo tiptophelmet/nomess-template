@@ -5,13 +5,13 @@ import (
 	"github.com/tiptophelmet/nomess/util"
 )
 
-type ConfigOptions struct {
+type configOptions struct {
 	name   string
 	rawVal interface{}
 }
 
-func Get(name string) *ConfigOptions {
-	options := &ConfigOptions{
+func Get(name string) *configOptions {
+	options := &configOptions{
 		name:   name,
 		rawVal: raw(name),
 	}
@@ -20,7 +20,7 @@ func Get(name string) *ConfigOptions {
 }
 
 func raw(name string) interface{} {
-	env, found := configList.list[name]
+	env, found := confList.list[name]
 	if !found {
 		return nil
 	}
@@ -36,7 +36,7 @@ func raw(name string) interface{} {
 	return rawVal
 }
 
-func (co *ConfigOptions) Required() *ConfigOptions {
+func (co *configOptions) Required() *configOptions {
 	if util.IsEmpty(co.rawVal) {
 		logger.Panic("could not resolve config %v", co.name)
 		return nil
@@ -45,7 +45,7 @@ func (co *ConfigOptions) Required() *ConfigOptions {
 	return co
 }
 
-func (co *ConfigOptions) Str() string {
+func (co *configOptions) Str() string {
 	val, typeOk := co.rawVal.(string)
 	if !typeOk {
 		logger.Error("could not assert config %v to string", co.name)
@@ -55,7 +55,7 @@ func (co *ConfigOptions) Str() string {
 	return val
 }
 
-func (co *ConfigOptions) Int() int {
+func (co *configOptions) Int() int {
 	val, typeOk := co.rawVal.(int)
 	if !typeOk {
 		logger.Error("could not assert config %v to int", co.name)
@@ -65,7 +65,7 @@ func (co *ConfigOptions) Int() int {
 	return val
 }
 
-func (co *ConfigOptions) Int64() int64 {
+func (co *configOptions) Int64() int64 {
 	val, typeOk := co.rawVal.(int64)
 	if !typeOk {
 		logger.Error("could not assert config %v to int64", co.name)
@@ -75,7 +75,7 @@ func (co *ConfigOptions) Int64() int64 {
 	return val
 }
 
-func (co *ConfigOptions) Float() float32 {
+func (co *configOptions) Float() float32 {
 	val, typeOk := co.rawVal.(float32)
 	if !typeOk {
 		logger.Error("could not assert config %v to float", co.name)
@@ -85,7 +85,7 @@ func (co *ConfigOptions) Float() float32 {
 	return val
 }
 
-func (co *ConfigOptions) Bool() bool {
+func (co *configOptions) Bool() bool {
 	val, typeOk := co.rawVal.(bool)
 	if !typeOk {
 		logger.Error("could not assert config %v to bool", co.name)

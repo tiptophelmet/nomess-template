@@ -6,7 +6,7 @@ import (
 	"github.com/tiptophelmet/nomess/logger"
 )
 
-func initEnv(name string, fallback interface{}) *Env {
+func initEnv(name string, fallback interface{}) *env {
 	var value interface{}
 
 	if envValue, present := os.LookupEnv(name); present {
@@ -19,10 +19,10 @@ func initEnv(name string, fallback interface{}) *Env {
 		logger.Fatal("env %s is not set & has no fallback", name)
 	}
 
-	return &Env{name, value, fallback}
+	return &env{name, value, fallback}
 }
 
-type Env struct {
+type env struct {
 	name     string
 	value    interface{}
 	fallback interface{}
