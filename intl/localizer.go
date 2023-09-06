@@ -2,22 +2,21 @@ package intl
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/pelletier/go-toml"
 )
 
-var lz *Localizer
+var lz *localizer
 
-func Init(defaultLocale string) *Localizer {
+func Init(defaultLocale string) {
 	if lz != nil {
-		return lz
+		return
 	}
 
-	lz = &Localizer{locale: defaultLocale}
+	lz = &localizer{locale: defaultLocale}
 
 	loadLocale()
-
-	return lz
 }
 
 func loadLocale() {
@@ -30,14 +29,17 @@ func loadLocale() {
 	}
 }
 
-type Localizer struct {
+type localizer struct {
 	locale     string
 	localeTree *toml.Tree
+	mu         sync.Mutex
 }
 
 func SetLocale(locale string) {
-	lz.locale = locale
+	lz.mu.Lock()
+	defer lz.mu.Unlock()
 
+	lz.locale = locale
 	loadLocale()
 }
 
@@ -46,8 +48,7 @@ func GetLocale() string {
 }
 
 func Localize(key string) string {
-	value := lz.localeTree.Get(key)
-	if value != nil {
+	if value := lz.localeTree.Get(key); value != nil {
 		if s, ok := value.(string); ok {
 			return s
 		}
