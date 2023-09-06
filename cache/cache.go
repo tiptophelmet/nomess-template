@@ -8,15 +8,15 @@ import (
 	"github.com/tiptophelmet/nomess/logger"
 )
 
-type CacheClient struct {
+type cacheClient struct {
 	cacher cacher.Cacher
 	mu     sync.Mutex
 }
 
-var cacheClient *CacheClient
+var client *cacheClient
 
 func Init() {
-	if cacheClient != nil {
+	if client != nil {
 		return
 	}
 
@@ -24,22 +24,22 @@ func Init() {
 
 	switch driverConfig {
 	case "redis":
-		cacheClient = &CacheClient{cacher: cacher.InitRedisCacher()}
+		client = &cacheClient{cacher: cacher.InitRedisCacher()}
 	case "memcached":
-		cacheClient = &CacheClient{cacher: cacher.InitMemcachedCacher()}
+		client = &cacheClient{cacher: cacher.InitMemcachedCacher()}
 	case "aerospike":
-		cacheClient = &CacheClient{cacher: cacher.InitAerospikeCacher()}
+		client = &cacheClient{cacher: cacher.InitAerospikeCacher()}
 	default:
 		logger.Panic("unsupported cache.driver: %v", driverConfig)
 	}
 
 	driverURL := config.Get("cache.url").Required().Str()
-	cacheClient.cacher.Connect(driverURL)
+	client.cacher.Connect(driverURL)
 }
 
 func Connection() cacher.Cacher {
-	cacheClient.mu.Lock()
-	defer cacheClient.mu.Unlock()
+	client.mu.Lock()
+	defer client.mu.Unlock()
 
-	return cacheClient.cacher
+	return client.cacher
 }
