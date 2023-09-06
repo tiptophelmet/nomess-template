@@ -17,6 +17,7 @@ require (
 	github.com/bradfitz/gomemcache v0.0.0-20230611145640-acc696258285
 	github.com/gorilla/mux v1.8.0
 	github.com/redis/go-redis/v9 v9.1.0
+	github.com/sirupsen/logrus v1.9.3
 	github.com/tiptophelmet/aerospike-url v1.1.0
 )
 

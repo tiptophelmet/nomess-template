@@ -70,7 +70,7 @@ func (srv *Register) Validate(body body.Register) error {
 func (srv *Register) Register(body body.Register) error {
 	passwHash, err := password.HashAndSalt(body.Password)
 	if err != nil {
-		logger.Crit(err.Error())
+		logger.Fatal(err.Error())
 		return errs.ErrPasswordHash
 	}
 
@@ -83,7 +83,7 @@ func (srv *Register) Register(body body.Register) error {
 
 	userInserted, err := srv.userRepo.Save(user)
 	if err != nil {
-		logger.Err(err.Error())
+		logger.Error(err.Error())
 		return errs.ErrUserInsert
 	}
 
@@ -95,14 +95,14 @@ func (srv *Register) Register(body body.Register) error {
 	_, err = srv.userVerificationRepo.Save(userVerification)
 
 	if err != nil {
-		logger.Err(err.Error())
+		logger.Error(err.Error())
 		return errs.ErrUserVerificationInsert
 	}
 
 	_, err = srv.sendVerificationEmail(body.Email, userVerification.Code)
 
 	if err != nil {
-		logger.Err(err.Error())
+		logger.Error(err.Error())
 		return errs.ErrVerificationEmailNotSent
 	}
 

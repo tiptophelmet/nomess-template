@@ -22,12 +22,12 @@ func InitMongoDB() *MongoDB {
 
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 	if err != nil {
-		logger.Alert(err.Error())
+		logger.Fatal(err.Error())
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	err = client.Connect(ctx)
 	if err != nil {
-		logger.Alert(err.Error())
+		logger.Fatal(err.Error())
 	}
 
 	return &MongoDB{client, ctx, cancel}

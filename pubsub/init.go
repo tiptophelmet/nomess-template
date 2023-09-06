@@ -1,8 +1,6 @@
 package pubsub
 
 import (
-	"fmt"
-
 	"github.com/tiptophelmet/nomess/config"
 	"github.com/tiptophelmet/nomess/logger"
 	"github.com/tiptophelmet/nomess/pubsub/broker"
@@ -19,7 +17,7 @@ func InitPubSub() {
 	case "nats":
 		pubsubClient = &broker.NATSBroker{}
 	default:
-		logger.Emergency(fmt.Sprintf("unsupported cache.driver: %v", driverConfig))
+		logger.Panic("unsupported cache.driver: %v", driverConfig)
 	}
 
 	driverURL := config.Get("pubsub.url").Required().Str()

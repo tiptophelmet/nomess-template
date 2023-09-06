@@ -1,8 +1,6 @@
 package router
 
 import (
-	"fmt"
-
 	"github.com/tiptophelmet/nomess/logger"
 )
 
@@ -15,7 +13,7 @@ func LockRoute(pattern string) {
 func PeekRouteLock(assumed string) {
 	for _, locked := range lockedPatterns {
 		if matchLockedRoute(locked, assumed) {
-			logger.Emergency(fmt.Sprintf("route reserved for core features & cannot be modified: %v", assumed))
+			logger.Panic("route reserved for core features & cannot be modified: %v", assumed)
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package router
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -49,7 +48,7 @@ func WebSocket(pattern string, upgrader *websocket.Upgrader, handlr func(*websoc
 		ws, err := upgrader.Upgrade(w, r, nil)
 
 		if err != nil {
-			logger.Err(fmt.Sprintf("failed to upgrade HTTP connection for %v with error: %v", pattern, err.Error()))
+			logger.Error("failed to upgrade HTTP connection for %v with error: %v", pattern, err.Error())
 			return
 		}
 

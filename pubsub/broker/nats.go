@@ -18,7 +18,7 @@ func (n *NATSBroker) Connect(url string) error {
 	n.client, err = nats.Connect(url)
 
 	if err != nil {
-		logger.Err(fmt.Sprintf("failed to connect to NATS: %v", err.Error()))
+		logger.Error("failed to connect to NATS: %v", err.Error())
 		return errs.ErrPubSubBrokerConnectionFailed
 	}
 

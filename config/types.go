@@ -1,8 +1,6 @@
 package config
 
 import (
-	"fmt"
-
 	"github.com/tiptophelmet/nomess/logger"
 	"github.com/tiptophelmet/nomess/util"
 )
@@ -40,7 +38,7 @@ func raw(name string) interface{} {
 
 func (co *ConfigOptions) Required() *ConfigOptions {
 	if util.IsEmpty(co.rawVal) {
-		logger.Emergency(fmt.Sprintf("could not resolve config %v", co.name))
+		logger.Panic("could not resolve config %v", co.name)
 		return nil
 	}
 
@@ -50,7 +48,7 @@ func (co *ConfigOptions) Required() *ConfigOptions {
 func (co *ConfigOptions) Str() string {
 	val, typeOk := co.rawVal.(string)
 	if !typeOk {
-		logger.Err(fmt.Sprintf("could not assert config %v to string", co.name))
+		logger.Error("could not assert config %v to string", co.name)
 		return ""
 	}
 
@@ -60,7 +58,7 @@ func (co *ConfigOptions) Str() string {
 func (co *ConfigOptions) Int() int {
 	val, typeOk := co.rawVal.(int)
 	if !typeOk {
-		logger.Err(fmt.Sprintf("could not assert config %v to int", co.name))
+		logger.Error("could not assert config %v to int", co.name)
 		return 0
 	}
 
@@ -70,7 +68,7 @@ func (co *ConfigOptions) Int() int {
 func (co *ConfigOptions) Int64() int64 {
 	val, typeOk := co.rawVal.(int64)
 	if !typeOk {
-		logger.Err(fmt.Sprintf("could not assert config %v to int64", co.name))
+		logger.Error("could not assert config %v to int64", co.name)
 		return 0
 	}
 
@@ -80,7 +78,7 @@ func (co *ConfigOptions) Int64() int64 {
 func (co *ConfigOptions) Float() float32 {
 	val, typeOk := co.rawVal.(float32)
 	if !typeOk {
-		logger.Err(fmt.Sprintf("could not assert config %v to float", co.name))
+		logger.Error("could not assert config %v to float", co.name)
 		return 0.0
 	}
 
@@ -90,7 +88,7 @@ func (co *ConfigOptions) Float() float32 {
 func (co *ConfigOptions) Bool() bool {
 	val, typeOk := co.rawVal.(bool)
 	if !typeOk {
-		logger.Err(fmt.Sprintf("could not assert config %v to bool", co.name))
+		logger.Error("could not assert config %v to bool", co.name)
 		return false
 	}
 

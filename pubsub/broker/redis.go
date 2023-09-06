@@ -2,7 +2,6 @@ package broker
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/redis/go-redis/v9"
 	"github.com/tiptophelmet/nomess/errs"
@@ -10,14 +9,14 @@ import (
 )
 
 type RedisBroker struct {
-	client *redis.Client
+	client        *redis.Client
 	subscriptions map[string]*redis.PubSub
 }
 
 func (r *RedisBroker) Connect(url string) error {
 	options, err := redis.ParseURL(url)
 	if err != nil {
-		logger.Err(fmt.Sprintf("failed to connect to redis (pubsub): %v", err.Error()))
+		logger.Error("failed to connect to redis (pubsub): %v", err.Error())
 		return errs.ErrPubSubBrokerConnectionFailed
 	}
 
@@ -75,7 +74,7 @@ func (r *RedisBroker) IsConnected() bool {
 	if err := statusCmd.Err(); err != nil {
 		return false
 	}
-	
+
 	return true
 }
 

@@ -2,7 +2,6 @@ package cacher
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -22,7 +21,7 @@ func InitRedisCacher() *RedisCacher {
 func (rc *RedisCacher) Connect(url string) error {
 	options, err := redis.ParseURL(url)
 	if err != nil {
-		logger.Err(fmt.Sprintf("failed to connect to redis: %v", err.Error()))
+		logger.Error("failed to connect to redis: %v", err.Error())
 		return errs.ErrCacheStoreConnectionFailed
 	}
 

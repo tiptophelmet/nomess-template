@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/tiptophelmet/nomess/logger"
@@ -17,7 +16,7 @@ func initEnv(name string, fallback interface{}) *Env {
 	}
 
 	if value == nil && fallback == nil {
-		logger.Alert(fmt.Sprintf("env %s is not set & has no fallback", name))
+		logger.Fatal("env %s is not set & has no fallback", name)
 	}
 
 	return &Env{name, value, fallback}

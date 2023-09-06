@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/tiptophelmet/nomess/logger"
@@ -32,14 +31,14 @@ func initFallbackConfigs() *FallbackConfigList {
 	var list *toml.Tree
 
 	if tomlData, err := os.ReadFile("../config.toml"); err != nil {
-		logger.Alert(err.Error())
+		logger.Fatal(err.Error())
 	} else if list, err = toml.Load(string(tomlData)); err != nil {
-		logger.Alert(err.Error())
+		logger.Fatal(err.Error())
 	} else {
 		illegal := util.GetNonIntersecting(getSupportedConfigKeys(), list.Keys())
 
 		if len(illegal) > 0 {
-			logger.Alert(fmt.Sprintf("fallback config.toml has illegal keys: %v", illegal))
+			logger.Fatal("fallback config.toml has illegal keys: %v", illegal)
 		}
 
 	}

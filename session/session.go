@@ -1,7 +1,6 @@
 package session
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/dgrijalva/jwt-go/v4"
@@ -26,7 +25,7 @@ func IssueSessionToken(userID string) (string, error) {
 
 	signedJwt, err := token.SignedString([]byte(jwtSecret))
 	if err != nil {
-		logger.Crit(fmt.Sprintf("failed to sign jwt: %v", err.Error()))
+		logger.Fatal("failed to sign jwt: %v", err.Error())
 		return "", errs.ErrJwtNotIssued
 	}
 

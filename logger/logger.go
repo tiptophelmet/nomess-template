@@ -1,103 +1,55 @@
 package logger
 
 import (
-	"bytes"
-	"log"
 	"os"
-	"strconv"
+
+	"github.com/sirupsen/logrus"
 )
 
-type Logger struct {
-	log   *log.Logger
-	level int
-}
+var logger *logrus.Logger
 
-const (
-	DEBUG     = 8
-	LOG       = 7
-	INFO      = 6
-	WARN      = 5
-	ERR       = 4
-	CRIT      = 3
-	ALERT     = 2
-	EMERGENCY = 1
-)
+func Init() {
+	logger = logrus.New()
 
-var logger *Logger
-
-func Init() *Logger {
-	if logger != nil {
-		return logger
-	}
-
-	var buf bytes.Buffer
+	logger.SetFormatter(&logrus.JSONFormatter{})
+	logger.SetOutput(os.Stdout)
 
 	if envLevel, present := os.LookupEnv("NOMESS_LOG_LEVEL"); present {
-		intLevel, err := strconv.Atoi(envLevel)
+		parsedLevel, err := logrus.ParseLevel(envLevel)
 		if err != nil {
-			return &Logger{log.New(&buf, "[-]", log.Lshortfile|log.Ltime), intLevel}
+			panic(err)
 		}
-	}
 
-	logger = &Logger{log.New(&buf, "[ERR]", log.Lshortfile|log.Ltime), ERR}
-
-	return logger
-}
-
-func Debug(msg string) {
-	if logger.level == DEBUG {
-		logger.log.SetPrefix("[DEBUG]")
-		logger.log.Output(2, msg)
+		logger.SetLevel(parsedLevel)
+	} else {
+		logger.SetLevel(logrus.ErrorLevel)
 	}
 }
 
-func Log(msg string) {
-	if logger.level >= LOG {
-		logger.log.SetPrefix("[LOG]")
-		logger.log.Output(2, msg)
-	}
+func Panic(format string, args ...interface{}) {
+	logger.Panicf(format, args...)
 }
 
-func Info(msg string) {
-	if logger.level >= INFO {
-		logger.log.SetPrefix("[INFO]")
-		logger.log.Output(2, msg)
-	}
+func Fatal(format string, args ...interface{}) {
+	logger.Fatalf(format, args...)
 }
 
-func Warn(msg string) {
-	if logger.level >= WARN {
-		logger.log.SetPrefix("[WARN]")
-		logger.log.Output(2, msg)
-	}
+func Error(format string, args ...interface{}) {
+	logger.Errorf(format, args...)
 }
 
-func Err(msg string) {
-	if logger.level >= ERR {
-		logger.log.SetPrefix("[ERR]")
-		logger.log.Output(2, msg)
-	}
+func Warn(format string, args ...interface{}) {
+	logger.Warnf(format, args...)
 }
 
-func Crit(msg string) {
-	if logger.level >= CRIT {
-		logger.log.SetPrefix("[CRIT]")
-		logger.log.Output(2, msg)
-	}
+func Info(format string, args ...interface{}) {
+	logger.Infof(format, args...)
 }
 
-func Alert(msg string) {
-	if logger.level >= ALERT {
-		logger.log.SetPrefix("[ALERT]")
-		logger.log.Output(2, msg)
-		os.Exit(1)
-	}
+func Debug(format string, args ...interface{}) {
+	logger.Debugf(format, args...)
 }
 
-func Emergency(msg string) {
-	if logger.level >= EMERGENCY {
-		logger.log.SetPrefix("[EMERGENCY]")
-		logger.log.Output(2, msg)
-		panic(msg)
-	}
+func Trace(format string, args ...interface{}) {
+	logger.Tracef(format, args...)
 }

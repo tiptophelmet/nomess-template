@@ -1,8 +1,6 @@
 package cache
 
 import (
-	"fmt"
-
 	"github.com/tiptophelmet/nomess/cache/cacher"
 	"github.com/tiptophelmet/nomess/config"
 	"github.com/tiptophelmet/nomess/logger"
@@ -21,7 +19,7 @@ func InitCache() {
 	case "aerospike":
 		cacheClient = cacher.InitAerospikeCacher()
 	default:
-		logger.Emergency(fmt.Sprintf("unsupported cache.driver: %v", driverConfig))
+		logger.Panic("unsupported cache.driver: %v", driverConfig)
 	}
 
 	driverURL := config.Get("cache.url").Required().Str()

@@ -1,7 +1,6 @@
 package cacher
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/bradfitz/gomemcache/memcache"
@@ -23,7 +22,7 @@ func (mc *MemcachedCacher) Connect(url string) error {
 
 	err := mc.client.Ping()
 	if err != nil {
-		logger.Err(fmt.Sprintf("failed to connect to memcached: %v", err.Error()))
+		logger.Error("failed to connect to memcached: %v", err.Error())
 		return errs.ErrCacheStoreConnectionFailed
 	}
 

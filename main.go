@@ -30,8 +30,8 @@ func startServer() {
 
 	err := http.ListenAndServe(prefixedPort, router.GetMuxRouter())
 	if err != nil {
-		logger.Emergency(fmt.Sprintf("failed to start http server: %v", err.Error()))
+		logger.Panic("failed to start http server: %v", err.Error())
 	} else {
-		logger.Debug("server started at port %v")
+		logger.Debug("server started at port %v", port)
 	}
 }

@@ -1,8 +1,6 @@
 package orm
 
 import (
-	"fmt"
-
 	"github.com/tiptophelmet/nomess/config"
 	"github.com/tiptophelmet/nomess/db/orm/sql"
 	"github.com/tiptophelmet/nomess/logger"
@@ -33,7 +31,7 @@ func Init() {
 	case "clickhouse":
 		dialector = clickhouse.Open(dsn)
 	default:
-		logger.Emergency(fmt.Sprintf("unsupported db.orm.driver: %v", driverConfig))
+		logger.Panic("unsupported db.orm.driver: %v", driverConfig)
 	}
 
 	sql.InitGormConnection(dialector, &gorm.Config{TranslateError: true})

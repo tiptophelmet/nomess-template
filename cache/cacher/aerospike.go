@@ -11,7 +11,7 @@ import (
 )
 
 type AerospikeCacher struct {
-	client *aerospike.Client
+	client    *aerospike.Client
 	namespace string
 }
 
@@ -23,13 +23,13 @@ func InitAerospikeCacher() *AerospikeCacher {
 func (ac *AerospikeCacher) Connect(url string) error {
 	clientFactory, err := aerospikeurl.Parse(url)
 	if err != nil {
-		logger.Err(fmt.Sprintf("failed to connect to aerospike: %v", err.Error()))
+		logger.Error("failed to connect to aerospike: %v", err.Error())
 		return errs.ErrCacheStoreConnectionFailed
 	}
 
 	ac.client, err = clientFactory.BuildClient()
 	if err != nil {
-		logger.Err(fmt.Sprintf("failed to connect to aerospike: %v", err.Error()))
+		logger.Error("failed to connect to aerospike: %v", err.Error())
 		return errs.ErrCacheStoreConnectionFailed
 	}
 
@@ -117,8 +117,8 @@ func (ac *AerospikeCacher) Delete(key string) (bool, error) {
 		return false, err
 	}
 
-	deletePolicy := aerospike.NewWritePolicy(0,0)
-    deletePolicy.DurableDelete = true
+	deletePolicy := aerospike.NewWritePolicy(0, 0)
+	deletePolicy.DurableDelete = true
 
 	return ac.client.Delete(deletePolicy, aeroKey)
 }
