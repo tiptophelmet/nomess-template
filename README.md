@@ -7,11 +7,12 @@ The framework with simple, yet crucial features for your Golang back-end to let 
 - 📦 Request bodies
 - 🕶️ Middleware
 - 🏢 Services (for business logic)
-- 🗄️ DB models
+- 🗄️ DB interface (GORM)
+- 🏎️ Cache interface (Redis, Memcached Aerospike)
+- 📢 Pubsub interface (Redis PubSub, NATS)
 - 🌍 i18n (internationalization)
 - 📝 Customized responses
 - 📧 Mailer interface
-- 📜 Customized & formatted logger
 - 🔒 Password hashing/checking
 - 🛠️ Utils
 - 📧🎨 AWS SES templates
