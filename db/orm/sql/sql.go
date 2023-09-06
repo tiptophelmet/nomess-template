@@ -1,27 +1,33 @@
 package sql
 
 import (
+	"sync"
+
 	"github.com/tiptophelmet/nomess/logger"
 	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+type gormClient struct {
+	conn *gorm.DB
+	mu   sync.Mutex
+}
 
-func InitGormConnection(dialector gorm.Dialector, config *gorm.Config) *gorm.DB {
-	db, err := gorm.Open(dialector, config)
+var client *gormClient
+
+func InitGormConnection(dialector gorm.Dialector, config *gorm.Config) {
+	gormConn, err := gorm.Open(dialector, config)
 	if err != nil {
 		logger.Panic("could not resolve connect to postgres db: %v", err.Error())
 	}
 
+	client = &gormClient{conn: gormConn}
 	prepareConnectionPool()
-
-	return db
 }
 
 func prepareConnectionPool() {
-	sqlDB, err := db.DB()
+	sqlDB, err := client.conn.DB()
 	if err != nil {
-		logger.Panic("could not resolve connect to postgres db: %v", err.Error())
+		logger.Panic("could not resolve connect to db: %v", err.Error())
 	}
 
 	sqlDB.SetMaxIdleConns(10)
@@ -29,5 +35,8 @@ func prepareConnectionPool() {
 }
 
 func Connection() *gorm.DB {
-	return db
+	client.mu.Lock()
+	defer client.mu.Unlock()
+
+	return client.conn
 }
