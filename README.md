@@ -10,8 +10,7 @@ The framework with simple, yet crucial features for your Golang back-end to let 
 - 🗄️ DB interface (GORM)
 - 🏎️ Cache interface (Redis, Memcached Aerospike)
 - 📢 Pubsub interface (Redis PubSub, NATS)
-- 🌍 i18n (internationalization)
-- 📝 Customized responses
+- 🌍 i18n & localization
 - 📧 Mailer interface
 - 🔒 Password hashing/checking
 - 🛠️ Utils
