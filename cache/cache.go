@@ -1,31 +1,45 @@
 package cache
 
 import (
+	"sync"
+
 	"github.com/tiptophelmet/nomess/cache/cacher"
 	"github.com/tiptophelmet/nomess/config"
 	"github.com/tiptophelmet/nomess/logger"
 )
 
-var cacheClient cacher.Cacher
+type CacheClient struct {
+	cacher cacher.Cacher
+	mu     sync.Mutex
+}
 
-func InitCache() {
+var cacheClient *CacheClient
+
+func Init() {
+	if cacheClient != nil {
+		return
+	}
+
 	driverConfig := config.Get("cache.driver").Required().Str()
 
 	switch driverConfig {
 	case "redis":
-		cacheClient = cacher.InitRedisCacher()
+		cacheClient = &CacheClient{cacher: cacher.InitRedisCacher()}
 	case "memcached":
-		cacheClient = cacher.InitMemcachedCacher()
+		cacheClient = &CacheClient{cacher: cacher.InitMemcachedCacher()}
 	case "aerospike":
-		cacheClient = cacher.InitAerospikeCacher()
+		cacheClient = &CacheClient{cacher: cacher.InitAerospikeCacher()}
 	default:
 		logger.Panic("unsupported cache.driver: %v", driverConfig)
 	}
 
 	driverURL := config.Get("cache.url").Required().Str()
-	cacheClient.Connect(driverURL)
+	cacheClient.cacher.Connect(driverURL)
 }
 
 func Connection() cacher.Cacher {
-	return cacheClient
+	cacheClient.mu.Lock()
+	defer cacheClient.mu.Unlock()
+
+	return cacheClient.cacher
 }
