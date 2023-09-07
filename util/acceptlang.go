@@ -20,8 +20,10 @@ func PickAcceptLang(langTags string) string {
 }
 
 func ParseAcceptLang(langTags string) []languageTag {
-	tags := make([]languageTag, 0)
-	for _, part := range strings.Split(langTags, ",") {
+	langTagsList := strings.Split(langTags, ",")
+	tags := make([]languageTag, 0, len(langTagsList))
+
+	for _, part := range langTagsList {
 		parts := strings.Split(strings.TrimSpace(part), ";")
 		tag := strings.TrimSpace(parts[0])
 		quality := 1.0

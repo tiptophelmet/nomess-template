@@ -7,7 +7,7 @@ func Register(configs map[string]string) {
 }
 
 func getSupportedConfigKeys() []string {
-	var keys []string
+	keys := make([]string, 0, len(supportedConfigs))
 
 	for k := range supportedConfigs {
 		keys = append(keys, k)

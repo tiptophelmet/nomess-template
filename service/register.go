@@ -40,7 +40,8 @@ func (srv *Register) Validate(body body.Register) error {
 	err := srv.validate.Struct(body)
 
 	if err != nil {
-		var errs []string
+		errs := make([]string, 0, len(err.(validator.ValidationErrors)))
+
 		for _, err := range err.(validator.ValidationErrors) {
 			fmt.Println(err.Field())
 			fmt.Println(err.Value())
