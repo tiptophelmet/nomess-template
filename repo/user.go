@@ -1,29 +1,20 @@
 package repo
 
 import (
-	"github.com/tiptophelmet/nomess/internal/db"
+	"github.com/tiptophelmet/nomess/internal/db/orm/sql"
 	"github.com/tiptophelmet/nomess/model"
-
-	"go.mongodb.org/mongo-driver/mongo"
+	"gorm.io/gorm"
 )
 
 type User struct {
-	db *db.MongoDB
+	db *gorm.DB
 }
 
 func InitUserRepo() *User {
-	return &User{db: db.InitMongoDB()}
+	return &User{db: sql.Connection()}
 }
 
-func (repo *User) Save(model *model.User) (*mongo.InsertOneResult, error) {
-	defer repo.db.CtxCancel()
-	defer repo.db.Client.Disconnect(repo.db.Ctx)
-	collection := repo.db.Client.Database("mydb").Collection("user")
-
-	result, err := collection.InsertOne(repo.db.Ctx, model)
-	if err != nil {
-		return nil, err
-	}
-
-	return result, nil
+func (repo *User) Save(user *model.User) error {
+	result := repo.db.Create(&user)
+	return result.Error
 }

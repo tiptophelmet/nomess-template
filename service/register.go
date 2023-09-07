@@ -14,7 +14,6 @@ import (
 	"github.com/tiptophelmet/nomess/util"
 
 	"github.com/go-playground/validator/v10"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Register struct {
@@ -74,26 +73,23 @@ func (srv *Register) Register(body body.Register) error {
 		Verified:     false,
 	}
 
-	userInserted, err := srv.userRepo.Save(user)
-	if err != nil {
+	if err := srv.userRepo.Save(user); err != nil {
 		logger.Error(err.Error())
 		return errs.ErrUserInsert
 	}
 
 	userVerification := &model.UserVerification{
-		UserID: userInserted.InsertedID.(primitive.ObjectID),
-		Code:   util.RandStringBytes(6),
+		User: *user,
+		Code: util.RandStringBytes(6),
 	}
 
-	_, err = srv.userVerificationRepo.Save(userVerification)
-
+	err = srv.userVerificationRepo.Save(userVerification)
 	if err != nil {
 		logger.Error(err.Error())
 		return errs.ErrUserVerificationInsert
 	}
 
 	err = srv.sendVerificationEmail(body.Email, userVerification.Code)
-
 	if err != nil {
 		logger.Error(err.Error())
 		return errs.ErrVerificationEmailNotSent

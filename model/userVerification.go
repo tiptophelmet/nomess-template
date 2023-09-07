@@ -1,12 +1,11 @@
 package model
 
 import (
-	"github.com/tiptophelmet/nomess/internal/db/orm/doc/mongo"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"github.com/tiptophelmet/nomess/internal/db/orm/sql"
 )
 
 type UserVerification struct {
-	mongo.Model
-	UserID primitive.ObjectID `bson:"user_id"`
-	Code   string             `bson:"code"`
+	sql.Model
+	User User
+	Code string
 }

@@ -1,13 +1,13 @@
 package model
 
 import (
-	"github.com/tiptophelmet/nomess/internal/db/orm/doc/mongo"
+	"github.com/tiptophelmet/nomess/internal/db/orm/sql"
 )
 
 type User struct {
-	mongo.Model
-	Email        string `bson:"email"`
-	PasswordHash string `bson:"password_hash"`
-	AuthProvider string `bson:"auth_provider"`
-	Verified     bool   `bson:"verified"`
+	sql.Model
+	Email        string
+	PasswordHash string
+	AuthProvider string
+	Verified     bool
 }
