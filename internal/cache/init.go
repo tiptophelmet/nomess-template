@@ -4,7 +4,6 @@ import (
 	"sync"
 
 	"github.com/tiptophelmet/nomess/internal/cache/cacher"
-	"github.com/tiptophelmet/nomess/internal/config"
 	"github.com/tiptophelmet/nomess/internal/logger"
 )
 
@@ -15,14 +14,8 @@ type cacheClient struct {
 
 var client *cacheClient
 
-func Init() {
-	if client != nil {
-		return
-	}
-
-	driverConfig := config.Get("cache.driver").Required().Str()
-
-	switch driverConfig {
+func Init(driver, url string) {
+	switch driver {
 	case "redis":
 		client = &cacheClient{cacher: cacher.InitRedisCacher()}
 	case "memcached":
@@ -30,11 +23,10 @@ func Init() {
 	case "aerospike":
 		client = &cacheClient{cacher: cacher.InitAerospikeCacher()}
 	default:
-		logger.Panic("unsupported cache.driver: %v", driverConfig)
+		logger.Panic("unsupported cache.driver: %v", driver)
 	}
 
-	driverURL := config.Get("cache.url").Required().Str()
-	client.cacher.Connect(driverURL)
+	client.cacher.Connect(url)
 }
 
 func Connection() cacher.Cacher {

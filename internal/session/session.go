@@ -5,25 +5,40 @@ import (
 
 	"github.com/dgrijalva/jwt-go/v4"
 	"github.com/tiptophelmet/nomess/internal/errs"
-	"github.com/tiptophelmet/nomess/internal/config"
 	"github.com/tiptophelmet/nomess/internal/logger"
 )
 
-func IssueSessionToken(userID string) (string, error) {
-	jwtExpTime := config.Get("session.jwt.expiration.time").Required().Int64()
+type sessionManager struct {
+	jwtExpTime   int64
+	jwtExpWindow int64
+	jwtSecret    string
+}
 
+var session *sessionManager
+
+func Init(jwtExpTime, jwtExpWindow int64, jwtSecret string) {
+	session = &sessionManager{jwtExpTime, jwtExpWindow, jwtSecret}
+}
+
+func Get() *sessionManager {
+	if session == nil {
+		logger.Fatal("session manager was not initialized")
+	}
+
+	return session
+}
+
+func (session *sessionManager) IssueSessionToken(userID string) (string, error) {
 	// TODO: Add jti support
 	claims := jwt.MapClaims{
 		"sub": userID,
-		"exp": time.Now().Unix() + jwtExpTime,
+		"exp": time.Now().Unix() + session.jwtExpTime,
 		"iat": time.Now().Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	jwtSecret := config.Get("session.jwt.secret").Required().Str()
-
-	signedJwt, err := token.SignedString([]byte(jwtSecret))
+	signedJwt, err := token.SignedString([]byte(session.jwtSecret))
 	if err != nil {
 		logger.Fatal("failed to sign jwt: %v", err.Error())
 		return "", errs.ErrJwtNotIssued
@@ -32,21 +47,18 @@ func IssueSessionToken(userID string) (string, error) {
 	return signedJwt, nil
 }
 
-func checkRotationCondition(jwtExpTime int64) (bool, error) {
-	jwtExpWindow := config.Get("session.jwt.expiration.window").Required().Int64()
+func (session *sessionManager) checkRotationCondition(jwtClaimedExpTime int64) (bool, error) {
 	currentTime := time.Now().Unix()
 
-	isExpired := currentTime > jwtExpTime
-	isRotationWindowOk := currentTime < jwtExpTime+jwtExpWindow
+	isExpired := currentTime > jwtClaimedExpTime
+	isRotationWindowOk := currentTime < jwtClaimedExpTime+session.jwtExpWindow
 
 	return isExpired && isRotationWindowOk, nil
 }
 
-func TryRotateSessionToken(signedToken string) (string, error) {
-	jwtSecret := config.Get("session.jwt.secret").Required().Str()
-
+func (session *sessionManager) TryRotateSessionToken(signedToken string) (string, error) {
 	parsedToken, err := jwt.Parse(signedToken, func(token *jwt.Token) (interface{}, error) {
-		return []byte(jwtSecret), nil
+		return []byte(session.jwtSecret), nil
 	})
 
 	if !parsedToken.Valid {
@@ -64,25 +76,23 @@ func TryRotateSessionToken(signedToken string) (string, error) {
 		return "", errs.ErrInvalidJwtClaims
 	}
 
-	jwtExpTime := claims["exp"].(int64)
+	jwtClaimedExpTime := claims["exp"].(int64)
 
-	isRotationOk, err := checkRotationCondition(jwtExpTime)
+	isRotationOk, err := session.checkRotationCondition(jwtClaimedExpTime)
 	if err != nil {
 		return "", err
 	}
 
 	if isRotationOk {
-		return IssueSessionToken(claims["sub"].(string))
+		return session.IssueSessionToken(claims["sub"].(string))
 	}
 
 	return "", nil
 }
 
-func ValidateSessionToken(token string) (bool, error) {
-	jwtSecret := config.Get("session.jwt.secret").Required().Str()
-
+func (session *sessionManager) ValidateSessionToken(token string) (bool, error) {
 	parsedToken, err := jwt.Parse(token, func(token *jwt.Token) (interface{}, error) {
-		return []byte(jwtSecret), nil
+		return []byte(session.jwtSecret), nil
 	})
 
 	if !parsedToken.Valid || err != nil {

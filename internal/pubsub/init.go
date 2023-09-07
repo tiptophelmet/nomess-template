@@ -3,7 +3,6 @@ package pubsub
 import (
 	"sync"
 
-	"github.com/tiptophelmet/nomess/internal/config"
 	"github.com/tiptophelmet/nomess/internal/logger"
 	"github.com/tiptophelmet/nomess/internal/pubsub/broker"
 )
@@ -15,20 +14,17 @@ type pubSubClient struct {
 
 var client *pubSubClient
 
-func Init() {
-	driverConfig := config.Get("pubsub.driver").Required().Str()
-
-	switch driverConfig {
+func Init(driver, url string) {
+	switch driver {
 	case "redis":
 		client = &pubSubClient{broker: &broker.RedisBroker{}}
 	case "nats":
 		client = &pubSubClient{broker: &broker.NATSBroker{}}
 	default:
-		logger.Panic("unsupported pubsub.driver: %v", driverConfig)
+		logger.Panic("unsupported pubsub.driver: %v", driver)
 	}
 
-	driverURL := config.Get("pubsub.url").Required().Str()
-	client.broker.Connect(driverURL)
+	client.broker.Connect(url)
 }
 
 func Connection() broker.PubSubBroker {

@@ -17,7 +17,7 @@ func WithSession(w http.ResponseWriter, r *http.Request) {
 		sessionToken = cookieSessionToken.String()
 	}
 
-	isValid, err := session.ValidateSessionToken(sessionToken)
+	isValid, err := session.Get().ValidateSessionToken(sessionToken)
 
 	cookie := http.Cookie{
 		Name:     "session_token",
@@ -29,7 +29,7 @@ func WithSession(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if isValid && err != nil {
-		rotatedToken, _ := session.TryRotateSessionToken(sessionToken)
+		rotatedToken, _ := session.Get().TryRotateSessionToken(sessionToken)
 
 		if rotatedToken == "" {
 			return

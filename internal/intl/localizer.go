@@ -22,7 +22,7 @@ func Init(defaultLocale string) {
 func loadLocale() {
 	var err error
 
-	lz.localeTree, err = toml.LoadFile(fmt.Sprintf("../locales/%s.toml", lz.locale))
+	lz.localeTree, err = toml.LoadFile(fmt.Sprintf("../../locales/%s.toml", lz.locale))
 
 	if err != nil {
 		panic(err)

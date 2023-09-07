@@ -1,7 +1,6 @@
 package orm
 
 import (
-	"github.com/tiptophelmet/nomess/internal/config"
 	"github.com/tiptophelmet/nomess/internal/db/orm/sql"
 	"github.com/tiptophelmet/nomess/internal/logger"
 	"gorm.io/driver/clickhouse"
@@ -12,13 +11,10 @@ import (
 	"gorm.io/gorm"
 )
 
-func Init() {
-	driverConfig := config.Get("db.orm.driver").Required().Str()
-	dsn := config.Get("db.orm.dsn").Required().Str()
-
+func Init(driver, dsn string) {
 	var dialector gorm.Dialector
 
-	switch driverConfig {
+	switch driver {
 	case "mysql":
 	case "tidb":
 		dialector = mysql.Open(dsn)
@@ -31,7 +27,7 @@ func Init() {
 	case "clickhouse":
 		dialector = clickhouse.Open(dsn)
 	default:
-		logger.Panic("unsupported db.orm.driver: %v", driverConfig)
+		logger.Panic("unsupported db.orm.driver: %v", driver)
 	}
 
 	sql.InitGormConnection(dialector, &gorm.Config{TranslateError: true})
