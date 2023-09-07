@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/tiptophelmet/nomess-core/logger"
+	"github.com/tiptophelmet/nomess-core/password"
 	"github.com/tiptophelmet/nomess-template/body"
 	"github.com/tiptophelmet/nomess-template/errs"
-	"github.com/tiptophelmet/nomess-template/internal/logger"
-	"github.com/tiptophelmet/nomess-template/internal/password"
 	"github.com/tiptophelmet/nomess-template/model"
 	"github.com/tiptophelmet/nomess-template/repo"
 	"github.com/tiptophelmet/nomess-template/util"

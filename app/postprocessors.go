@@ -1,7 +1,7 @@
 package app
 
 import (
-	postproc "github.com/tiptophelmet/nomess-template/internal/postprocessor"
+	postproc "github.com/tiptophelmet/nomess-core/postprocessor"
 	"github.com/tiptophelmet/nomess-template/postprocessor"
 )
 

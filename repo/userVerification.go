@@ -1,7 +1,7 @@
 package repo
 
 import (
-	"github.com/tiptophelmet/nomess-template/internal/db/orm/sql"
+	"github.com/tiptophelmet/nomess-core/db/orm/sql"
 	"github.com/tiptophelmet/nomess-template/model"
 	"gorm.io/gorm"
 )

@@ -1,6 +1,6 @@
 package response
 
-import "github.com/tiptophelmet/nomess-template/internal/intl"
+import "github.com/tiptophelmet/nomess-core/intl"
 
 type registrationSuccessful struct {
 	Message string

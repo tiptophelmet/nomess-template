@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/tiptophelmet/nomess-template/internal/config"
-	"github.com/tiptophelmet/nomess-template/internal/db/orm"
+	"github.com/tiptophelmet/nomess-core/config"
+	"github.com/tiptophelmet/nomess-core/db/orm"
 )
 
 func initDB() {

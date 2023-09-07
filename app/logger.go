@@ -3,7 +3,7 @@ package app
 import (
 	"os"
 
-	"github.com/tiptophelmet/nomess-template/internal/logger"
+	"github.com/tiptophelmet/nomess-core/logger"
 )
 
 func initLogger() {
