@@ -3,7 +3,7 @@ package sql
 import (
 	"sync"
 
-	"github.com/tiptophelmet/nomess/internal/logger"
+	"github.com/tiptophelmet/nomess-template/internal/logger"
 	"gorm.io/gorm"
 )
 

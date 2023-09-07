@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/tiptophelmet/nomess/body"
-	"github.com/tiptophelmet/nomess/internal/intl"
-	"github.com/tiptophelmet/nomess/internal/responder"
-	"github.com/tiptophelmet/nomess/response"
-	"github.com/tiptophelmet/nomess/service"
+	"github.com/tiptophelmet/nomess-template/body"
+	"github.com/tiptophelmet/nomess-template/internal/intl"
+	"github.com/tiptophelmet/nomess-template/internal/responder"
+	"github.com/tiptophelmet/nomess-template/response"
+	"github.com/tiptophelmet/nomess-template/service"
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {

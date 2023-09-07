@@ -3,8 +3,8 @@ package config
 import (
 	"os"
 
-	"github.com/tiptophelmet/nomess/internal/logger"
-	"github.com/tiptophelmet/nomess/internal/util"
+	"github.com/tiptophelmet/nomess-template/internal/logger"
+	"github.com/tiptophelmet/nomess-template/internal/util"
 
 	"github.com/pelletier/go-toml"
 )

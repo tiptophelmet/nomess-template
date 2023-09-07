@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 
-	"github.com/tiptophelmet/nomess/internal/logger"
+	"github.com/tiptophelmet/nomess-template/internal/logger"
 )
 
 func initEnv(name string, fallback interface{}) *env {

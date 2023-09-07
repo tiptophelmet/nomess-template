@@ -1,4 +1,4 @@
-module github.com/tiptophelmet/nomess
+module github.com/tiptophelmet/nomess-template
 
 go 1.19
 

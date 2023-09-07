@@ -1,8 +1,8 @@
 package app
 
 import (
-	mw "github.com/tiptophelmet/nomess/internal/middleware"
-	"github.com/tiptophelmet/nomess/middleware"
+	mw "github.com/tiptophelmet/nomess-template/internal/middleware"
+	"github.com/tiptophelmet/nomess-template/middleware"
 )
 
 func initMiddleware() {

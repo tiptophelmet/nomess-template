@@ -3,7 +3,7 @@ package postprocessor
 import (
 	"net/http"
 
-	"github.com/tiptophelmet/nomess/internal/logger"
+	"github.com/tiptophelmet/nomess-template/internal/logger"
 )
 
 func WithLogging(w http.ResponseWriter, r *http.Request) {

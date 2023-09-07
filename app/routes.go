@@ -2,8 +2,8 @@ package app
 
 import (
 	"github.com/gorilla/websocket"
-	"github.com/tiptophelmet/nomess/handler"
-	"github.com/tiptophelmet/nomess/internal/router"
+	"github.com/tiptophelmet/nomess-template/handler"
+	"github.com/tiptophelmet/nomess-template/internal/router"
 )
 
 func initRoutes() {

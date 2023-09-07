@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/tiptophelmet/nomess/internal/intl"
-	"github.com/tiptophelmet/nomess/internal/locales"
-	"github.com/tiptophelmet/nomess/util"
+	"github.com/tiptophelmet/nomess-template/internal/intl"
+	"github.com/tiptophelmet/nomess-template/internal/locales"
+	"github.com/tiptophelmet/nomess-template/util"
 )
 
 func WithLocalize(w http.ResponseWriter, r *http.Request) {

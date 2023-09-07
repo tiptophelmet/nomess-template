@@ -1,7 +1,7 @@
 package password
 
 import (
-	"github.com/tiptophelmet/nomess/internal/logger"
+	"github.com/tiptophelmet/nomess-template/internal/logger"
 
 	"golang.org/x/crypto/bcrypt"
 )

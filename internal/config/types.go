@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/tiptophelmet/nomess/internal/logger"
-	"github.com/tiptophelmet/nomess/internal/util"
+	"github.com/tiptophelmet/nomess-template/internal/logger"
+	"github.com/tiptophelmet/nomess-template/internal/util"
 )
 
 type configOptions struct {

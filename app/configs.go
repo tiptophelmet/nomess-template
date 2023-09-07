@@ -1,6 +1,6 @@
 package app
 
-import "github.com/tiptophelmet/nomess/internal/config"
+import "github.com/tiptophelmet/nomess-template/internal/config"
 
 var configs = map[string]string{
 	"port":                          "NOMESS_PORT",

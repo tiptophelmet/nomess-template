@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/tiptophelmet/nomess/internal/intl"
-	"github.com/tiptophelmet/nomess/internal/locales"
+	"github.com/tiptophelmet/nomess-template/internal/intl"
+	"github.com/tiptophelmet/nomess-template/internal/locales"
 )
 
 func initLocales() {

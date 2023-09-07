@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/tiptophelmet/nomess/body"
-	"github.com/tiptophelmet/nomess/errs"
-	"github.com/tiptophelmet/nomess/internal/logger"
-	"github.com/tiptophelmet/nomess/internal/password"
-	"github.com/tiptophelmet/nomess/model"
-	"github.com/tiptophelmet/nomess/repo"
-	"github.com/tiptophelmet/nomess/util"
+	"github.com/tiptophelmet/nomess-template/body"
+	"github.com/tiptophelmet/nomess-template/errs"
+	"github.com/tiptophelmet/nomess-template/internal/logger"
+	"github.com/tiptophelmet/nomess-template/internal/password"
+	"github.com/tiptophelmet/nomess-template/model"
+	"github.com/tiptophelmet/nomess-template/repo"
+	"github.com/tiptophelmet/nomess-template/util"
 
 	"github.com/go-playground/validator/v10"
 )

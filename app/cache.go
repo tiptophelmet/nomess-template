@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/tiptophelmet/nomess/internal/cache"
-	"github.com/tiptophelmet/nomess/internal/config"
+	"github.com/tiptophelmet/nomess-template/internal/cache"
+	"github.com/tiptophelmet/nomess-template/internal/config"
 )
 
 func initCache() {

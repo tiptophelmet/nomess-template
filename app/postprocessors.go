@@ -1,8 +1,8 @@
 package app
 
 import (
-	postproc "github.com/tiptophelmet/nomess/internal/postprocessor"
-	"github.com/tiptophelmet/nomess/postprocessor"
+	postproc "github.com/tiptophelmet/nomess-template/internal/postprocessor"
+	"github.com/tiptophelmet/nomess-template/postprocessor"
 )
 
 func initPostProcessors() {

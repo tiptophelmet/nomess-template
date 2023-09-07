@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/tiptophelmet/nomess/app"
-	"github.com/tiptophelmet/nomess/internal/config"
-	"github.com/tiptophelmet/nomess/internal/logger"
-	"github.com/tiptophelmet/nomess/internal/router"
+	"github.com/tiptophelmet/nomess-template/app"
+	"github.com/tiptophelmet/nomess-template/internal/config"
+	"github.com/tiptophelmet/nomess-template/internal/logger"
+	"github.com/tiptophelmet/nomess-template/internal/router"
 )
 
 func main() {
