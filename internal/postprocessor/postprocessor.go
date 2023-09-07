@@ -6,7 +6,7 @@ import (
 
 type PostProcFunc func(http.ResponseWriter, *http.Request)
 
-var postProc map[string][]PostProcFunc
+var postProc = make(map[string][]PostProcFunc)
 
 func Register(pattern string, postProcFuncList []PostProcFunc) {
 	postProc[pattern] = postProcFuncList

@@ -6,7 +6,7 @@ import (
 
 type MiddlewareFunc func(http.ResponseWriter, *http.Request)
 
-var mw map[string][]MiddlewareFunc
+var mw = make(map[string][]MiddlewareFunc)
 
 func Register(pattern string, mwFuncList []MiddlewareFunc) {
 	mw[pattern] = mwFuncList

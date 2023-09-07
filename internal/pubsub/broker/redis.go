@@ -8,6 +8,10 @@ import (
 	"github.com/tiptophelmet/nomess/internal/logger"
 )
 
+func InitRedisBroker() *RedisBroker {
+	return &RedisBroker{subscriptions: make(map[string]*redis.PubSub)}
+}
+
 type RedisBroker struct {
 	client        *redis.Client
 	subscriptions map[string]*redis.PubSub

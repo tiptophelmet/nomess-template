@@ -8,6 +8,10 @@ import (
 	"github.com/tiptophelmet/nomess/internal/logger"
 )
 
+func InitNATSBroker() *NATSBroker {
+	return &NATSBroker{subscriptions: make(map[string]*nats.Subscription)}
+}
+
 type NATSBroker struct {
 	client        *nats.Conn
 	subscriptions map[string]*nats.Subscription

@@ -17,9 +17,9 @@ var client *pubSubClient
 func Init(driver, url string) {
 	switch driver {
 	case "redis":
-		client = &pubSubClient{broker: &broker.RedisBroker{}}
+		client = &pubSubClient{broker: broker.InitRedisBroker()}
 	case "nats":
-		client = &pubSubClient{broker: &broker.NATSBroker{}}
+		client = &pubSubClient{broker: broker.InitNATSBroker()}
 	default:
 		logger.Panic("unsupported pubsub.driver: %v", driver)
 	}
