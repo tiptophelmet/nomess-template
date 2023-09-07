@@ -4,7 +4,9 @@ func InitApp() {
 	initLogger()
 	initConfigs()
 
-	initLocale()
+	initLocales()
+
+	initSession()
 
 	initMiddleware()
 	initPostProcessors()

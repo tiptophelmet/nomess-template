@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/tiptophelmet/nomess/internal/intl"
-	"github.com/tiptophelmet/nomess/locales"
+	"github.com/tiptophelmet/nomess/internal/locales"
 	"github.com/tiptophelmet/nomess/util"
 )
 

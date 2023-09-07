@@ -2,10 +2,14 @@ package locales
 
 import "strings"
 
-var SupportedLocales = []string{"en-US"}
+var supportedLocales []string
+
+func Register(locales []string) {
+	supportedLocales = locales
+}
 
 func IsSupportedLocale(tag string) bool {
-	for _, lang := range SupportedLocales {
+	for _, lang := range supportedLocales {
 		if strings.HasPrefix(tag, lang) {
 			return true
 		}
