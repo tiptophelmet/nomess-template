@@ -8,5 +8,6 @@ import (
 func initPostProcessors() {
 	postproc.Register("/register", []postproc.PostProcFunc{
 		postprocessor.WithLogging,
+		postprocessor.WithCompression,
 	})
 }
