@@ -16,3 +16,5 @@ cache.url = "redis://user:password@localhost:6789/3?dial_timeout=3&db=1&read_tim
 
 pubsub.driver = "nats"
 pubsub.url = "nats://localhost:4222"
+
+strict-transport-security.max-age = 63072000
