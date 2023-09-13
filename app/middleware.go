@@ -5,12 +5,21 @@ import (
 	"github.com/tiptophelmet/nomess-template/middleware"
 )
 
-func initMiddleware() {
-	mw.Register("/register", []mw.MiddlewareFunc{
-		middleware.WithLocalize,
-	})
+func defaultMiddleware() []mw.MiddlewareFunc {
+	return []mw.MiddlewareFunc{
+	}
+}
 
-	mw.Register("/chat", []mw.MiddlewareFunc{
+func useMiddleware(middlwr ...mw.MiddlewareFunc) []mw.MiddlewareFunc {
+	return append(middlwr, defaultMiddleware()...)
+}
+
+func initMiddleware() {
+	mw.Register("/register", useMiddleware(
+		middleware.WithLocalize,
+	))
+
+	mw.Register("/chat", useMiddleware(
 		middleware.WithSession,
-	})
+	))
 }
