@@ -983,6 +983,8 @@ github.com/testcontainers/testcontainers-go v0.14.0/go.mod h1:hSRGJ1G8Q5Bw2gXgPu
 github.com/tidwall/pretty v1.0.0/go.mod h1:XNkn88O1ChpSDQmQeStsy+sBenx6DDtFZJxhVysOjyk=
 github.com/tiptophelmet/aerospike-url v1.1.0 h1:xxPEkdxQkD15r395CUwotEbSSDj88nmMFGGzgdJ/nEE=
 github.com/tiptophelmet/aerospike-url v1.1.0/go.mod h1:jaRwsovnuxkRVRCMRhRPTtKp5vu4gwfyT5GQIzEPZTU=
+github.com/tiptophelmet/cspolicy v0.1.1 h1:TiC1vWOuRcxPlY7GFIdRUpLvfTR3i5PJph66S3qsNpg=
+github.com/tiptophelmet/cspolicy v0.1.1/go.mod h1:rUdvHsbJflLSqh5gSWwDuMAxXGlysQpaN5V4vYzmcUM=
 github.com/tiptophelmet/nomess-core v0.1.0-alpha h1:vV5Z7X7YnwY9J31Hn3kiWB5L57leEB1wbRc0PDFnRyA=
 github.com/tiptophelmet/nomess-core v0.1.0-alpha/go.mod h1:oytCwEvFFtpaKUJlAOp8PHuivrnqs0Bw1y/oawDp7wk=
 github.com/tklauser/go-sysconf v0.3.10/go.mod h1:C8XykCvCb+Gn0oNCWPIlcb0RuglQTYaQ2hGm7jmxEFk=
