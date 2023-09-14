@@ -8,7 +8,7 @@ import (
 	"github.com/tiptophelmet/cspolicy/src"
 )
 
-func WithContentSecurityPolicy(w http.ResponseWriter, r *http.Request) {
+func WithContentSecurityPolicy(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *http.Request) {
 	csp := cspolicy.Build(
 		directives.DefaultSrc(src.None()),
 		directives.BaseURI(src.Self(), src.Host("*.example.com")),
@@ -35,4 +35,5 @@ func WithContentSecurityPolicy(w http.ResponseWriter, r *http.Request) {
 	)
 
 	w.Header().Add("Content-Security-Policy", csp)
+	return w, r
 }
