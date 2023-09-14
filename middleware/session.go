@@ -8,7 +8,7 @@ import (
 	"github.com/tiptophelmet/nomess-core/session"
 )
 
-func WithSession(w http.ResponseWriter, r *http.Request) {
+func WithSession(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *http.Request) {
 	var sessionToken string
 
 	if headerSessionToken := r.Header.Get("Authorization"); headerSessionToken != "" {
@@ -32,7 +32,7 @@ func WithSession(w http.ResponseWriter, r *http.Request) {
 		rotatedToken, _ := session.Get().TryRotateSessionToken(sessionToken)
 
 		if rotatedToken == "" {
-			return
+			return w, r
 		}
 
 		jwtExpTime := config.Get("session.jwt.expiration.time").Required().Int()
@@ -43,10 +43,12 @@ func WithSession(w http.ResponseWriter, r *http.Request) {
 		// Token successfully rotated
 		http.SetCookie(w, &cookie)
 
-		return
+		return w, r
 	}
 
 	// Token is invalid - remove cookie, respond with unauthorized status
 	http.SetCookie(w, &cookie)
 	http.Error(w, "Unauthorized", http.StatusUnauthorized)
+	
+	return w, r
 }
