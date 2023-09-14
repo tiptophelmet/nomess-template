@@ -987,6 +987,8 @@ github.com/tiptophelmet/cspolicy v0.1.1 h1:TiC1vWOuRcxPlY7GFIdRUpLvfTR3i5PJph66S
 github.com/tiptophelmet/cspolicy v0.1.1/go.mod h1:rUdvHsbJflLSqh5gSWwDuMAxXGlysQpaN5V4vYzmcUM=
 github.com/tiptophelmet/nomess-core v0.1.0-alpha h1:vV5Z7X7YnwY9J31Hn3kiWB5L57leEB1wbRc0PDFnRyA=
 github.com/tiptophelmet/nomess-core v0.1.0-alpha/go.mod h1:oytCwEvFFtpaKUJlAOp8PHuivrnqs0Bw1y/oawDp7wk=
+github.com/tiptophelmet/nomess-core v1.1.0 h1:ED8P0tcFmroXC/Lt1XRRJfVj7FqJrAVF5oPpoWmWAbY=
+github.com/tiptophelmet/nomess-core v1.1.0/go.mod h1:oytCwEvFFtpaKUJlAOp8PHuivrnqs0Bw1y/oawDp7wk=
 github.com/tklauser/go-sysconf v0.3.10/go.mod h1:C8XykCvCb+Gn0oNCWPIlcb0RuglQTYaQ2hGm7jmxEFk=
 github.com/tklauser/numcpus v0.4.0/go.mod h1:1+UI3pD8NW14VMwdgJNJ1ESk2UnwhAnz5hMwiKKqXCQ=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20170815181823-89b8d40f7ca8/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=

@@ -65,7 +65,7 @@ require (
 	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
 	github.com/nats-io/nats.go v1.28.0 // indirect
-	github.com/tiptophelmet/nomess-core v0.1.0-alpha
+	github.com/tiptophelmet/nomess-core v1.1.0
 	golang.org/x/sync v0.3.0 // indirect
 	golang.org/x/sys v0.12.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
