@@ -1,13 +1,16 @@
 package app
 
 import (
-	"github.com/gorilla/websocket"
-	"github.com/tiptophelmet/nomess-core/router"
+	"fmt"
+
+	"github.com/tiptophelmet/nomess-core/v3/router"
 	"github.com/tiptophelmet/nomess-template/handler"
 )
 
 func initRoutes() {
 	router.Init()
-	router.Handle("/register", handler.Register).Methods("GET")
-	router.WebSocket("/chat", &websocket.Upgrader{}, handler.Chat)
+	router.Handle("/helloworld", handler.HelloWorld).Methods("GET")
+	router.Handle("/item", handler.CreateItem).Methods("POST")
+
+	fmt.Println("Routes init OK!")
 }

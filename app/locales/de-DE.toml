@@ -1,0 +1,14 @@
+# err texts
+[internal_server_error]
+message = "Interner Serverfehler"
+text = "Bitte versuchen Sie Ihre Anfrage später erneut, derzeit erleben wir eine hohe Nachfrage nach unseren Ressourcen."
+
+[bad_request]
+message = "Ungültige Anfrage"
+text = "Ihre Anfrage scheint falsche Parameter zu haben. Bitte versuchen Sie Ihre Anfrage erneut."
+
+[invalid_body]
+message = "Ihre Anfrage enthält ungültige Felder"
+
+[item_created]
+message = "Erfolg! Ihr Artikel wurde erstellt."

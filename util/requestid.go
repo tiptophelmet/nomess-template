@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
-	"github.com/tiptophelmet/nomess-core/logger"
+	"github.com/tiptophelmet/nomess-core/v3/logger"
 )
 
 type RequestIdContextKey string

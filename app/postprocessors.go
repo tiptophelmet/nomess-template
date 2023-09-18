@@ -1,7 +1,7 @@
 package app
 
 import (
-	postproc "github.com/tiptophelmet/nomess-core/postprocessor"
+	postproc "github.com/tiptophelmet/nomess-core/v3/postprocessor"
 	"github.com/tiptophelmet/nomess-template/postprocessor"
 )
 
@@ -19,7 +19,8 @@ func usePostProcs(postProcs ...postproc.PostProcFunc) []postproc.PostProcFunc {
 }
 
 func initPostProcessors() {
-	postproc.Register("/register", usePostProcs(
-		// List specific postprocessors
+	postproc.Register("/item", usePostProcs(
+		postprocessor.WithCompression,
+		postprocessor.WithLogging,
 	))
 }

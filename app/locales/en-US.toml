@@ -1,8 +1,3 @@
-# ok texts
-[registration_successful]
-message = "Registration successful"
-text = "You are 1 step away from using our app :) Please, check your email to verify your account."
-
 # err texts
 [internal_server_error]
 message = "Internal server error"
@@ -14,3 +9,6 @@ text = "Your request appeared to have incorrect parameters. Please retry your re
 
 [invalid_body]
 message = "Your request has invalid fields"
+
+[item_created]
+message = "Success! Your item has been created."

@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/tiptophelmet/nomess-core/config"
-	"github.com/tiptophelmet/nomess-core/logger"
-	"github.com/tiptophelmet/nomess-core/router"
+	"github.com/tiptophelmet/nomess-core/v3/config"
+	"github.com/tiptophelmet/nomess-core/v3/logger"
+
+	"github.com/tiptophelmet/nomess-core/v3/router"
 	"github.com/tiptophelmet/nomess-template/app"
 )
 
@@ -17,7 +18,7 @@ func main() {
 }
 
 func startServer() {
-	port := config.Get("port").Required().Str()
+	port := config.Get("port").Required().Int()
 	prefixedPort := fmt.Sprintf(":%v", port)
 
 	err := http.ListenAndServe(prefixedPort, router.GetMuxRouter())

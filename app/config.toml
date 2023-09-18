@@ -1,0 +1,18 @@
+port = 8080
+
+# session.jwt.expiration.time = 3600
+# session.jwt.expiration.window = 300
+# no fallback for session.jwt.secret, set from env only 
+
+db.orm.driver = "postgres"
+db.orm.dsn = "host=0.0.0.0 user=nomess-user password=nomess-passw dbname=nomess-db port=9920 sslmode=disable TimeZone=America/New_York"
+
+# cache.driver = "redis"
+# cache.url = "redis://user:password@localhost:6789/3?dial_timeout=3&db=1&read_timeout=6s&max_retries=2"
+
+# pubsub.driver = "nats"
+# pubsub.url = "nats://localhost:4222"
+
+strict-transport-security.max-age = 63072000
+app.production = true
+app.floating = 3.149682

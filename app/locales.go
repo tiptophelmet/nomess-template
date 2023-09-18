@@ -1,12 +1,17 @@
 package app
 
 import (
-	"github.com/tiptophelmet/nomess-core/intl"
-	"github.com/tiptophelmet/nomess-core/locales"
+	"embed"
+
+	"github.com/tiptophelmet/nomess-core/v3/intl"
+	"github.com/tiptophelmet/nomess-core/v3/locales"
 )
+
+//go:embed locales
+var localesDir embed.FS
 
 func initLocales() {
 	locales.Register([]string{"en-US"})
 
-	intl.Init("en-US")
+	intl.Init("en-US", localesDir)
 }

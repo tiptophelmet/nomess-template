@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/tiptophelmet/nomess-core/config"
-	"github.com/tiptophelmet/nomess-core/session"
+	"github.com/tiptophelmet/nomess-core/v3/config"
+	"github.com/tiptophelmet/nomess-core/v3/session"
 )
 
 func WithSession(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *http.Request) {
@@ -49,6 +49,6 @@ func WithSession(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *
 	// Token is invalid - remove cookie, respond with unauthorized status
 	http.SetCookie(w, &cookie)
 	http.Error(w, "Unauthorized", http.StatusUnauthorized)
-	
+
 	return w, r
 }

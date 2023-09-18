@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/tiptophelmet/nomess-core/intl"
-	"github.com/tiptophelmet/nomess-core/locales"
+	"github.com/tiptophelmet/nomess-core/v3/intl"
+	"github.com/tiptophelmet/nomess-core/v3/locales"
 	"github.com/tiptophelmet/nomess-template/util"
 )
 

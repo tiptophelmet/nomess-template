@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/tiptophelmet/nomess-core/config"
-	"github.com/tiptophelmet/nomess-core/pubsub"
+	"github.com/tiptophelmet/nomess-core/v3/config"
+	"github.com/tiptophelmet/nomess-core/v3/pubsub"
 )
 
 func initPubSub() {

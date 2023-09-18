@@ -1,12 +1,13 @@
 package app
 
 import (
-	mw "github.com/tiptophelmet/nomess-core/middleware"
+	mw "github.com/tiptophelmet/nomess-core/v3/middleware"
 	"github.com/tiptophelmet/nomess-template/middleware"
 )
 
 func defaultMiddleware() []mw.MiddlewareFunc {
 	return []mw.MiddlewareFunc{
+		middleware.WithRequestID,
 	}
 }
 
@@ -15,11 +16,7 @@ func useMiddleware(middlwr ...mw.MiddlewareFunc) []mw.MiddlewareFunc {
 }
 
 func initMiddleware() {
-	mw.Register("/register", useMiddleware(
+	mw.Register("/item", useMiddleware(
 		middleware.WithLocalize,
-	))
-
-	mw.Register("/chat", useMiddleware(
-		middleware.WithSession,
 	))
 }
