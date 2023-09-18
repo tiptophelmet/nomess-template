@@ -1,10 +1,10 @@
 module github.com/tiptophelmet/nomess-template
 
-go 1.19
+go 1.21
 
 require golang.org/x/crypto v0.13.0 // indirect
 
-require github.com/tiptophelmet/nomess-core/v3 v3.1.4
+require github.com/tiptophelmet/nomess-core/v4 v4.1.5
 
 require (
 	github.com/gorilla/websocket v1.5.0 // indirect

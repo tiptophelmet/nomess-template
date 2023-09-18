@@ -3,9 +3,9 @@ package app
 import (
 	"fmt"
 
-	"github.com/tiptophelmet/nomess-core/v3/config"
-	"github.com/tiptophelmet/nomess-core/v3/db/orm"
-	"github.com/tiptophelmet/nomess-core/v3/db/orm/sql"
+	"github.com/tiptophelmet/nomess-core/v4/config"
+	"github.com/tiptophelmet/nomess-core/v4/db/orm"
+	"github.com/tiptophelmet/nomess-core/v4/db/orm/sql"
 	"github.com/tiptophelmet/nomess-template/model"
 )
 

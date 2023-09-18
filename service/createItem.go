@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/tiptophelmet/nomess-core/v3/logger"
+	"github.com/tiptophelmet/nomess-core/v4/logger"
 	"github.com/tiptophelmet/nomess-template/body"
 	"github.com/tiptophelmet/nomess-template/model"
 	"github.com/tiptophelmet/nomess-template/repo"

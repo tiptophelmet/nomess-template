@@ -3,7 +3,7 @@ package app
 import (
 	"embed"
 
-	"github.com/tiptophelmet/nomess-core/v3/config"
+	"github.com/tiptophelmet/nomess-core/v4/config"
 )
 
 var configs = map[string]string{
@@ -18,8 +18,6 @@ var configs = map[string]string{
 	// "pubsub.driver":                     "NOMESS_PUBSUB_DRIVER",
 	// "pubsub.url":                        "NOMESS_PUBSUB_URL",
 	"strict-transport-security.max-age": "NOMESS_STRICT_TRANSPORT_SECURITY_MAX_AGE",
-	"app.production":                    "NOMESS_APP_PRODUCTION",
-	"app.floating":                      "NOMESS_APP_FLOATING",
 }
 
 //go:embed config.toml

@@ -1,6 +1,6 @@
 package response
 
-import "github.com/tiptophelmet/nomess-core/v3/intl"
+import "github.com/tiptophelmet/nomess-core/v4/intl"
 
 type badRequest struct {
 	Message string

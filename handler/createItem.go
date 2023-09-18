@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/tiptophelmet/nomess-core/v3/intl"
-	"github.com/tiptophelmet/nomess-core/v3/responder"
+	"github.com/tiptophelmet/nomess-core/v4/intl"
+	"github.com/tiptophelmet/nomess-core/v4/responder"
 	"github.com/tiptophelmet/nomess-template/body"
 	"github.com/tiptophelmet/nomess-template/response"
 	"github.com/tiptophelmet/nomess-template/service"

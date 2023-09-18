@@ -1,8 +1,8 @@
 package app
 
 import (
-	"github.com/tiptophelmet/nomess-core/v3/config"
-	"github.com/tiptophelmet/nomess-core/v3/session"
+	"github.com/tiptophelmet/nomess-core/v4/config"
+	"github.com/tiptophelmet/nomess-core/v4/session"
 )
 
 func initSession() {

@@ -3,7 +3,7 @@ package app
 import (
 	"fmt"
 
-	"github.com/tiptophelmet/nomess-core/v3/router"
+	"github.com/tiptophelmet/nomess-core/v4/router"
 	"github.com/tiptophelmet/nomess-template/handler"
 )
 

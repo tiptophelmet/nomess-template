@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/tiptophelmet/nomess-core/v3/config"
+	"github.com/tiptophelmet/nomess-core/v4/config"
 )
 
 func WithStrictTransportSecurity(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *http.Request) {

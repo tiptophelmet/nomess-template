@@ -1,7 +1,7 @@
 package app
 
 import (
-	mw "github.com/tiptophelmet/nomess-core/v3/middleware"
+	mw "github.com/tiptophelmet/nomess-core/v4/middleware"
 	"github.com/tiptophelmet/nomess-template/middleware"
 )
 
