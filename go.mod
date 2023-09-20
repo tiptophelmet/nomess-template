@@ -4,7 +4,7 @@ go 1.21
 
 require golang.org/x/crypto v0.13.0 // indirect
 
-require github.com/tiptophelmet/nomess-core/v5 v5.4.7
+require github.com/tiptophelmet/nomess-core/v5 v5.4.8
 
 require (
 	github.com/gorilla/websocket v1.5.0 // indirect

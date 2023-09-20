@@ -5,7 +5,9 @@ import (
 	"strings"
 
 	"github.com/tiptophelmet/nomess-core/v5/config"
+	"github.com/tiptophelmet/nomess-core/v5/logger"
 	"github.com/tiptophelmet/nomess-core/v5/session"
+	"github.com/tiptophelmet/nomess-core/v5/util"
 )
 
 func WithSession(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *http.Request) {
@@ -46,9 +48,10 @@ func WithSession(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *
 		return w, r
 	}
 
-	// Token is invalid - remove cookie, respond with unauthorized status
+	logger.Debug("Unauthorized request to [%s] %s was halted", r.Method, util.GetRoutePattern(r))
+	
 	http.SetCookie(w, &cookie)
 	http.Error(w, "Unauthorized", http.StatusUnauthorized)
 
-	return w, r
+	return nil, r
 }

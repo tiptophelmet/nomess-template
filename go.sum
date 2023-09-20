@@ -1008,6 +1008,8 @@ github.com/tiptophelmet/nomess-core/v5 v5.4.6 h1:3rxuVOWeRgoXTdYEoc3rt1nfiECjoNB
 github.com/tiptophelmet/nomess-core/v5 v5.4.6/go.mod h1:89ahzfVMTzvOedFbs/81XGTX5iOsguKPBnNdofeqOaw=
 github.com/tiptophelmet/nomess-core/v5 v5.4.7 h1:v5gHadXXWT75yKmGhws8TCn64TjRq0oe/yoiBhHoooE=
 github.com/tiptophelmet/nomess-core/v5 v5.4.7/go.mod h1:89ahzfVMTzvOedFbs/81XGTX5iOsguKPBnNdofeqOaw=
+github.com/tiptophelmet/nomess-core/v5 v5.4.8 h1:SY8A+nwwdencX7756pXhG7kS+Qsk6UUu6hzW6SL+L7o=
+github.com/tiptophelmet/nomess-core/v5 v5.4.8/go.mod h1:89ahzfVMTzvOedFbs/81XGTX5iOsguKPBnNdofeqOaw=
 github.com/tklauser/go-sysconf v0.3.10/go.mod h1:C8XykCvCb+Gn0oNCWPIlcb0RuglQTYaQ2hGm7jmxEFk=
 github.com/tklauser/numcpus v0.4.0/go.mod h1:1+UI3pD8NW14VMwdgJNJ1ESk2UnwhAnz5hMwiKKqXCQ=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20170815181823-89b8d40f7ca8/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
