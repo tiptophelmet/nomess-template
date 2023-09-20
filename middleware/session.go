@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/tiptophelmet/nomess-core/v4/config"
-	"github.com/tiptophelmet/nomess-core/v4/session"
+	"github.com/tiptophelmet/nomess-core/v5/config"
+	"github.com/tiptophelmet/nomess-core/v5/session"
 )
 
 func WithSession(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *http.Request) {

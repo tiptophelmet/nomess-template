@@ -3,11 +3,12 @@ package postprocessor
 import (
 	"net/http"
 
-	"github.com/tiptophelmet/nomess-core/v4/logger"
+	"github.com/tiptophelmet/nomess-core/v5/logger"
+	"github.com/tiptophelmet/nomess-core/v5/util"
 )
 
 func WithLogging(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *http.Request) {
-	logger.Info("Request %v finished with response %v", r, w)
-
+	logger.Info("Request to [%s] %s finished", r.Method, util.GetRoutePattern(r))
+	
 	return w, r
 }

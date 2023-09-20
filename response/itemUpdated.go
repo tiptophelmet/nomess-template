@@ -5,14 +5,14 @@ import (
 	"github.com/tiptophelmet/nomess-template/model"
 )
 
-type itemCreated struct {
+type itemUpdated struct {
 	Message string
 	Item    *model.Item
 }
 
-func ItemCreated(created *model.Item) *itemCreated {
-	return &itemCreated{
-		Message: intl.Localize("item_created.message"),
-		Item:    created,
+func ItemUpdated(updated *model.Item) *itemDeleted {
+	return &itemDeleted{
+		Message: intl.Localize("item_updated.message"),
+		Item:    updated,
 	}
 }

@@ -1,11 +1,9 @@
 package app
 
 import (
-	"fmt"
-
-	"github.com/tiptophelmet/nomess-core/v4/config"
-	"github.com/tiptophelmet/nomess-core/v4/db/orm"
-	"github.com/tiptophelmet/nomess-core/v4/db/orm/sql"
+	"github.com/tiptophelmet/nomess-core/v5/config"
+	"github.com/tiptophelmet/nomess-core/v5/db/orm"
+	"github.com/tiptophelmet/nomess-core/v5/db/orm/sql"
 	"github.com/tiptophelmet/nomess-template/model"
 )
 
@@ -14,8 +12,6 @@ func initORM() {
 	dsn := config.Get("db.orm.dsn").Required().Str()
 
 	orm.Init(driver, dsn)
-
-	fmt.Println("DB init OK!")
 }
 
 func initDB() {

@@ -13,19 +13,19 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-type CreateItem struct {
+type UpdateItem struct {
 	itemRepo *repo.Item
 	validate *validator.Validate
 }
 
-func InitCreateItemService() *CreateItem {
-	return &CreateItem{
+func InitUpdateItemService() *UpdateItem {
+	return &UpdateItem{
 		itemRepo: repo.InitItemRepo(),
 		validate: validator.New(),
 	}
 }
 
-func (srv *CreateItem) Validate(body body.CreateItem) error {
+func (srv *UpdateItem) Validate(body body.UpdateItem) error {
 	err := srv.validate.Struct(body)
 
 	if err != nil {
@@ -41,17 +41,21 @@ func (srv *CreateItem) Validate(body body.CreateItem) error {
 	return nil
 }
 
-func (srv *CreateItem) Create(itemBody body.CreateItem) (*model.Item, error) {
-	user := &model.Item{
-		Name:        itemBody.Name,
-		Description: itemBody.Description,
-	}
-
-	created, err := srv.itemRepo.Create(user)
+func (srv *UpdateItem) Update(itemId int, itemBody body.UpdateItem) (*model.Item, error) {
+	foundItem, err := srv.itemRepo.Get(itemId)
 	if err != nil {
 		logger.Error(err.Error())
 		return nil, err
 	}
 
-	return created, nil
+	foundItem.Name = itemBody.Name
+	foundItem.Description = itemBody.Description
+
+	updated, err := srv.itemRepo.Save(foundItem)
+	if err != nil {
+		logger.Error(err.Error())
+		return nil, err
+	}
+
+	return updated, nil
 }

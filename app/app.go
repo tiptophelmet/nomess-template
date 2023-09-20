@@ -1,7 +1,5 @@
 package app
 
-import "fmt"
-
 func InitApp() {
 	initLogger()
 	initConfigs()
@@ -17,6 +15,4 @@ func InitApp() {
 	initDB()
 	// initCache()
 	// initPubSub()
-
-	fmt.Println("App init OK!")
 }

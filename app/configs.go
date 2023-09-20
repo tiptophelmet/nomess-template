@@ -3,7 +3,7 @@ package app
 import (
 	"embed"
 
-	"github.com/tiptophelmet/nomess-core/v4/config"
+	"github.com/tiptophelmet/nomess-core/v5/config"
 )
 
 var configs = map[string]string{

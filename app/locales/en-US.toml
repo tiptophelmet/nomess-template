@@ -12,3 +12,25 @@ message = "Your request has invalid fields"
 
 [item_created]
 message = "Success! Your item has been created."
+
+[item_updated]
+message = "Item has been updated."
+
+[item_id_absent]
+message = "Item ID is absent"
+text = "Please, provide an item ID as a path parameter."
+
+[item_id_invalid]
+message = "Item ID is invalid"
+text = "Please, provide a valid integer item ID as a path parameter."
+
+[item_not_found]
+message = "There is no such an item!"
+text = "Requested item has not beeen found."
+
+[items_not_found]
+message = "No items yet!"
+text = "Consider creating at least 1 item, first."
+
+[item_deleted]
+message = "Item has been deleted."

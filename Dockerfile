@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the go mod and sum files to the container
 COPY go.mod go.sum ./
 
+# Use Go official module proxy
+ENV GOPROXY=https://proxy.golang.org
+
 # Download all dependencies
 RUN go mod download
 

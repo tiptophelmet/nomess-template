@@ -12,3 +12,25 @@ message = "Ihre Anfrage enthält ungültige Felder"
 
 [item_created]
 message = "Erfolg! Ihr Artikel wurde erstellt."
+
+[item_updated]
+message = "Artikel wurde aktualisiert."
+
+[item_id_absent]
+message = "Artikel-ID fehlt."
+text = "Bitte geben Sie eine Artikel-ID als Pfadparameter an."
+
+[item_id_invalid]
+message = "Artikel-ID ist ungültig."
+text = "Bitte geben Sie eine gültige Ganzzahl als Artikel-ID als Pfadparameter an."
+
+[item_not_found]
+message = "Es gibt keinen solchen Artikel!"
+text = "Der angeforderte Artikel wurde nicht gefunden."
+
+[items_not_found]
+message = "Noch keine Artikel!"
+text = "Erwägen Sie, zuerst mindestens 1 Artikel zu erstellen."
+
+[item_deleted]
+message = "Artikel wurde gelöscht."

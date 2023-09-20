@@ -3,8 +3,8 @@ package app
 import (
 	"embed"
 
-	"github.com/tiptophelmet/nomess-core/v4/intl"
-	"github.com/tiptophelmet/nomess-core/v4/locales"
+	"github.com/tiptophelmet/nomess-core/v5/intl"
+	"github.com/tiptophelmet/nomess-core/v5/locales"
 )
 
 //go:embed locales

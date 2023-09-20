@@ -1002,8 +1002,12 @@ github.com/tiptophelmet/aerospike-url v1.1.0 h1:xxPEkdxQkD15r395CUwotEbSSDj88nmM
 github.com/tiptophelmet/aerospike-url v1.1.0/go.mod h1:jaRwsovnuxkRVRCMRhRPTtKp5vu4gwfyT5GQIzEPZTU=
 github.com/tiptophelmet/cspolicy v0.1.1 h1:TiC1vWOuRcxPlY7GFIdRUpLvfTR3i5PJph66S3qsNpg=
 github.com/tiptophelmet/cspolicy v0.1.1/go.mod h1:rUdvHsbJflLSqh5gSWwDuMAxXGlysQpaN5V4vYzmcUM=
-github.com/tiptophelmet/nomess-core/v4 v4.1.5 h1:Ipy5sKQ/bVw9CpMlGsnmptsYUKDWAnjboKR3Jx0cgMU=
-github.com/tiptophelmet/nomess-core/v4 v4.1.5/go.mod h1:0FzI3kgcdcW+VYINOVEcXy8Wm9P4HxoHS8RWrATFS/M=
+github.com/tiptophelmet/nomess-core/v5 v5.4.5 h1:0xVIqIAnVX2UfNedz6imbTNmd9VMcWdxux3XPsfhTLY=
+github.com/tiptophelmet/nomess-core/v5 v5.4.5/go.mod h1:89ahzfVMTzvOedFbs/81XGTX5iOsguKPBnNdofeqOaw=
+github.com/tiptophelmet/nomess-core/v5 v5.4.6 h1:3rxuVOWeRgoXTdYEoc3rt1nfiECjoNBSwHx4JClW9sQ=
+github.com/tiptophelmet/nomess-core/v5 v5.4.6/go.mod h1:89ahzfVMTzvOedFbs/81XGTX5iOsguKPBnNdofeqOaw=
+github.com/tiptophelmet/nomess-core/v5 v5.4.7 h1:v5gHadXXWT75yKmGhws8TCn64TjRq0oe/yoiBhHoooE=
+github.com/tiptophelmet/nomess-core/v5 v5.4.7/go.mod h1:89ahzfVMTzvOedFbs/81XGTX5iOsguKPBnNdofeqOaw=
 github.com/tklauser/go-sysconf v0.3.10/go.mod h1:C8XykCvCb+Gn0oNCWPIlcb0RuglQTYaQ2hGm7jmxEFk=
 github.com/tklauser/numcpus v0.4.0/go.mod h1:1+UI3pD8NW14VMwdgJNJ1ESk2UnwhAnz5hMwiKKqXCQ=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20170815181823-89b8d40f7ca8/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=

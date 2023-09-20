@@ -1,7 +1,7 @@
 package app
 
 import (
-	mw "github.com/tiptophelmet/nomess-core/v4/middleware"
+	mw "github.com/tiptophelmet/nomess-core/v5/middleware"
 	"github.com/tiptophelmet/nomess-template/middleware"
 )
 
@@ -11,12 +11,10 @@ func defaultMiddleware() []mw.MiddlewareFunc {
 	}
 }
 
-func useMiddleware(middlwr ...mw.MiddlewareFunc) []mw.MiddlewareFunc {
-	return append(middlwr, defaultMiddleware()...)
-}
-
 func initMiddleware() {
-	mw.Register("/item", useMiddleware(
+	mw.RegisterMulti([]string{"/item", "/item/{id}"}, []mw.MiddlewareFunc{
 		middleware.WithLocalize,
-	))
+	})
+
+	mw.Default(defaultMiddleware())
 }

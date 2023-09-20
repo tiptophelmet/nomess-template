@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/tiptophelmet/nomess-core/v4/config"
-	"github.com/tiptophelmet/nomess-core/v4/logger"
+	"github.com/tiptophelmet/nomess-core/v5/config"
+	"github.com/tiptophelmet/nomess-core/v5/logger"
 
-	"github.com/tiptophelmet/nomess-core/v4/router"
+	"github.com/tiptophelmet/nomess-core/v5/router"
 	"github.com/tiptophelmet/nomess-template/app"
 )
 

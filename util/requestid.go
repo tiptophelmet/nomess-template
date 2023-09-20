@@ -6,7 +6,8 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
-	"github.com/tiptophelmet/nomess-core/v4/logger"
+	"github.com/tiptophelmet/nomess-core/v5/logger"
+	"github.com/tiptophelmet/nomess-template/app/logformat"
 )
 
 type RequestIdContextKey string
@@ -14,7 +15,16 @@ type RequestIdContextKey string
 const key RequestIdContextKey = "NOMESS-REQUEST-ID"
 
 func IssueRequestID(r *http.Request) *http.Request {
-	reqIdCtx := context.WithValue(r.Context(), key, uuid.New().String())
+	rid := uuid.New().String()
+
+	if logger.Logger() != nil {
+		ridFormat := &logformat.RequestIdFormatter{}
+		ridFormat.SetRequestId(rid)
+
+		logger.Logger().SetFormatter(ridFormat)
+	}
+
+	reqIdCtx := context.WithValue(r.Context(), key, rid)
 	return r.WithContext(reqIdCtx)
 }
 
