@@ -7,7 +7,7 @@ require golang.org/x/crypto v0.52.0 // indirect
 require github.com/tiptophelmet/nomess-core/v5 v5.4.9
 
 require (
-	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 )
