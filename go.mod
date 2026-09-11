@@ -2,7 +2,7 @@ module github.com/tiptophelmet/nomess-template
 
 go 1.25.0
 
-require golang.org/x/crypto v0.51.0 // indirect
+require golang.org/x/crypto v0.52.0 // indirect
 
 require github.com/tiptophelmet/nomess-core/v5 v5.4.9
 
